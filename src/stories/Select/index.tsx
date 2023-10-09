@@ -27,9 +27,10 @@ const Option = ({ value, onToggle, index }: OptionProps) => (
 type SelectProps = {
   options: string[];
   title: string;
+  onSearch?: (val: string[]) => void;
 };
 
-const Select = ({ options, title }: SelectProps) => {
+const Select = ({ options, title, onSearch }: SelectProps) => {
   const [filteredOptions, setFilteredOptions] =
     React.useState<string[]>(options); // [1
   const [selectedOptions, setSelectedOptions] = React.useState<string[]>([]);
@@ -94,8 +95,9 @@ const Select = ({ options, title }: SelectProps) => {
       </div>
       <button
         className="select_search_button"
+        disabled={selectedOptions.length === 0}
         onClick={() => {
-          console.log(selectedOptions);
+          onSearch && onSearch(selectedOptions);
         }}
       >
         Ara

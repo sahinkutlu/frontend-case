@@ -222,6 +222,11 @@ const meta = {
         type: "text",
       },
     },
+    onSearch: {
+      control: {
+        type: "function",
+      },
+    },
   },
 } satisfies Meta<typeof Select>;
 
@@ -232,6 +237,7 @@ type Story = StoryObj<typeof meta>;
 export const Primary: Story = {
   args: {
     title: "Kategoriler",
+    onSearch: (value: string[]) => alert(value),
     options,
   },
 };
