@@ -18,7 +18,13 @@ categoryArray.forEach((categoryName) => {
 });
 
 const Form = () => {
-  const [category, setCategory] = useState(categoryExtend);
+  const localCategory = JSON.parse(localStorage.getItem("category"));
+  // Sorting localCategory
+  if (localCategory) {
+    localCategory.sort((a, b) => b.isChecked - a.isChecked);
+  }
+
+  const [category, setCategory] = useState(localCategory || categoryExtend);
   const [search, setSearch] = useState([]);
 
   const handleCategoryClick = (e) => {
@@ -27,18 +33,8 @@ const Form = () => {
     if (e.target.checked) {
       array.forEach((item) => {
         if (item.name === e.target.name) {
-          // Making a copy of item and than deleting item from array
-          const index = array.indexOf(item);
-          const element = array[index];
-          array.splice(index, 1);
-
-          // Set element's isChecked value to true
-          element.isChecked = true;
-
-          // Add element to beginning of array
-          array.unshift(element);
+          item.isChecked = true;
         }
-        setCategory(array);
       });
     } else {
       array.forEach((item) => {
@@ -46,8 +42,11 @@ const Form = () => {
           item.isChecked = false;
         }
       });
-      setCategory(array);
     }
+    array.sort((a, b) => b.isChecked - a.isChecked);
+    setCategory(array);
+    // Saving data to prevent data loss on refresh
+    localStorage.setItem("category", JSON.stringify(category));
   };
 
   const handleSearchClick = (e) => {
@@ -71,7 +70,6 @@ const Form = () => {
           // Changing element's isChecked status on category state
           categoryArr.forEach((item) => {
             if (item.id === element.id) {
-              // Making copy of state
               const index = categoryArr.indexOf(item);
               // Deleting item from categoryArr
               categoryArr.splice(index, 1);
@@ -97,6 +95,8 @@ const Form = () => {
       setSearch(searchArr);
       setCategory(categoryArr);
     }
+    // Saving data to prevent data loss on refresh
+    localStorage.setItem("category", JSON.stringify(category));
   };
 
   const handleChange = (e) => {
@@ -110,21 +110,19 @@ const Form = () => {
 
     // Getting checked catagories from category state
     let categoryArr = [...category];
-    let i = 0;
+    let checkedCategories = 0;
     categoryArr.forEach((item) => {
       if (item.isChecked) {
         array.push(item);
-        i++;
+        checkedCategories++;
       }
     });
     // Delete checked catagories from categoryArr
-    categoryArr.splice(0, i);
+    categoryArr.splice(0, checkedCategories);
 
     categoryArr.forEach((item) => {
       if (item.name.toLowerCase().startsWith(e.target.value.toLowerCase())) {
         array.push(item);
-        const index = categoryArr.indexOf(item);
-        categoryArr.splice(index, 1);
       }
     });
 
