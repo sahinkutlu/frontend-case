@@ -37,7 +37,7 @@ form {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 10px;
+  gap: 20px;
 }
 input {
   border-radius: 8px;
@@ -62,4 +62,18 @@ button {
 
 button:hover {
   background-color: chocolate;
+}
+
+.categories {
+  height: 300px;
+  overflow: scroll;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 10px;
+}
+.category {
+  display: flex;
+  justify-content: flex-start;
+  gap: 10px;
 }
