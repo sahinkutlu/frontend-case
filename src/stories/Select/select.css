@@ -1,0 +1,110 @@
+.select_container {
+  border: 1px solid #aaa;
+  border-radius: 0.25rem;
+  padding: 1.125rem;
+  background-color: #fafafa;
+}
+
+.select_search > input {
+  padding: 0.5rem 0.25rem;
+  width: 100%;
+}
+
+.select_search {
+  display: flex;
+  align-items: center;
+  position: relative;
+  margin-bottom: 0.125rem;
+}
+
+.select_search .search_icon {
+  position: absolute;
+  right: 0.5rem;
+  top: 0.625rem;
+}
+
+.select_option_form-control {
+  font-size: 1rem;
+  line-height: 1.1;
+  display: grid;
+  color: dimgray;
+  grid-template-columns: 2em auto;
+  cursor: pointer;
+}
+
+input[type="checkbox"] {
+  appearance: none;
+  background-color: #fff;
+  margin: 0;
+  font: inherit;
+  color: dimgray;
+  width: 1.15em;
+  height: 1.15em;
+  border: 0.1rem solid dimgray;
+  transform: translateY(-0.075em);
+  display: grid;
+  place-content: center;
+}
+
+.select_option_form-control:has(input[type="checkbox"]:checked) span {
+  color: #4287f5;
+}
+
+input[type="checkbox"]::before {
+  content: "";
+  width: 0.65em;
+  height: 0.65em;
+  transform: scale(0);
+  transition: 120ms transform ease-in-out;
+  box-shadow: inset 1em 1em #4287f5;
+  background-color: CanvasText;
+}
+
+input[type="checkbox"]:checked::before {
+  transform: scale(1);
+}
+
+.select_list {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-left: 0.125rem;
+  max-height: 10rem;
+  overflow-y: auto;
+  min-width: 20rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.select_list_no_option {
+  width: 100%;
+  text-align: center;
+  padding: 1rem 0.75rem;
+  font-weight: 600;
+  font-size: 1.125rem;
+}
+
+.select_search_button {
+  width: 100%;
+  margin-top: 0.125rem;
+  padding: 0.5rem 0rem;
+  background-color: #4287f5;
+  color: white;
+  font-weight: 500;
+  font-size: 1rem;
+  border: 2px solid #4287f5;
+  outline: none;
+  cursor: pointer;
+  border-radius: 0.25rem;
+}
+
+.select_search_button:hover {
+  color: #4287f5;
+  background-color: whitesmoke;
+}
+
+.select_title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
