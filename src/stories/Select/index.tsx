@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useLayoutEffect } from "react";
 import "./select.css";
 import SearchIcon from "./SearchIcon";
 import parse from "html-react-parser";
@@ -7,13 +7,17 @@ type OptionProps = {
   value: string;
   index: number;
   onToggle: (val: string) => void;
+  isSelected?: boolean;
 };
 
-const Option = ({ value, onToggle, index }: OptionProps) => (
-  <div className="select_option">
+const Option = ({ value, onToggle, index, isSelected }: OptionProps) => (
+  <div
+    className={`select_option ${isSelected ? "select_option_selected" : ""}`}
+  >
     <label htmlFor={`option${index}`} className="select_option_form-control">
       <input
         type="checkbox"
+        checked={isSelected}
         id={`option${index}`}
         onChange={() => {
           onToggle(value);
@@ -44,6 +48,17 @@ const Select = ({ options, title, onSearch }: SelectProps) => {
     }
   };
 
+  useLayoutEffect(() => {
+    const selectedOptionsFromStorage = localStorage.getItem("selectedOptions");
+    if (selectedOptionsFromStorage) {
+      setSelectedOptions(JSON.parse(selectedOptionsFromStorage));
+    }
+  }, []);
+
+  useLayoutEffect(() => {
+    localStorage.setItem("selectedOptions", JSON.stringify(selectedOptions));
+  }, [selectedOptions]);
+
   useEffect(() => {
     setFilteredOptions(options);
   }, [options]);
@@ -57,8 +72,10 @@ const Select = ({ options, title, onSearch }: SelectProps) => {
 
     timeout = setTimeout(() => {
       setFilteredOptions(
-        options.filter((option) =>
-          option.toLowerCase().includes(search.toLowerCase())
+        options.filter(
+          (option) =>
+            option.toLowerCase().includes(search.toLowerCase()) ||
+            selectedOptions.includes(option)
         )
       );
     }, 500);
@@ -87,6 +104,7 @@ const Select = ({ options, title, onSearch }: SelectProps) => {
         {filteredOptions.map((option, index) => (
           <Option
             index={index}
+            isSelected={selectedOptions.includes(option)}
             key={`option-${index}`}
             value={option}
             onToggle={handleOnToggle}

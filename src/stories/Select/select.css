@@ -33,6 +33,7 @@
 }
 
 input[type="checkbox"] {
+  cursor: pointer;
   appearance: none;
   background-color: #fff;
   margin: 0;
@@ -74,6 +75,14 @@ input[type="checkbox"]:checked::before {
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
+}
+
+.select_option {
+  order: unset;
+}
+
+.select_option_selected {
+  order: -1;
 }
 
 .select_list_no_option {
