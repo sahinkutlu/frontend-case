@@ -1,0 +1,97 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended",
+    "plugin:@typescript-eslint/recommended-requiring-type-checking",
+    "plugin:import/recommended",
+    "plugin:import/typescript",
+    "plugin:jsx-a11y/recommended",
+    "airbnb",
+    "airbnb/hooks",
+    "airbnb-typescript",
+    "plugin:react/jsx-runtime",
+    "plugin:@tanstack/eslint-plugin-query/recommended",
+    "prettier"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": "latest",
+    "sourceType": "module",
+    "project": ["./tsconfig.json"]
+  },
+  "plugins": ["react", "@typescript-eslint", "vitest"],
+  "rules": {
+    "@typescript-eslint/comma-dangle": [
+      "error",
+      {
+        "arrays": "only-multiline",
+        "objects": "only-multiline",
+        "imports": "only-multiline",
+        "exports": "only-multiline",
+        "functions": "never"
+      }
+    ],
+    "@typescript-eslint/indent": "off",
+    "@typescript-eslint/quotes": ["error", "double"],
+    "comma-dangle": "off",
+    "function-paren-newline": "warn",
+    "implicit-arrow-linebreak": "warn",
+    "import/no-extraneous-dependencies": ["error", { "devDependencies": true }],
+    "import/no-unresolved": "error",
+    "indent": "off",
+    "linebreak-style": ["error", "unix"],
+    "object-curly-newline": [
+      "error",
+      {
+        "ExportDeclaration": { "multiline": true, "minProperties": 5 }
+      }
+    ],
+    "operator-linebreak": "warn",
+    "quotes": ["error", "double"],
+    "react/function-component-definition": [
+      2,
+      { "namedComponents": "arrow-function" }
+    ],
+    "react/require-default-props": [
+      "error",
+      {
+        "functions": "defaultArguments"
+      }
+    ],
+    "semi": ["error", "always"]
+  },
+  "overrides": [
+    {
+      "files": ["src/**/*.test.[tj]s?(x)"],
+      "excludedFiles": ["src/**/*.e2e.test.[tj]s?(x)"],
+      "extends": [
+        "plugin:jest-dom/recommended",
+        "plugin:testing-library/react",
+        "plugin:vitest/all"
+      ]
+    },
+    {
+      "files": ["tests/**/*.test.[tj]s?(x)"],
+      "extends": ["plugin:playwright/playwright-test"]
+    }
+  ],
+  "settings": {
+    "import/parsers": {
+      "@typescript-eslint/parser": [".ts", ".tsx"]
+    },
+    "import/resolver": {
+      "typescript": {
+        "alwaysTryTypes": true,
+        "project": "./tsconfig.json"
+      }
+    }
+  }
+}

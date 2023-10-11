@@ -1,0 +1,54 @@
+{
+  "parser": "typescript",
+  "printWidth": 80,
+  "arrowParens": "always",
+  "semi": true,
+  "tabWidth": 2,
+  "endOfLine": "auto",
+  "trailingComma": "es5",
+  "useTabs": false,
+  "quoteProps": "consistent",
+  "bracketSameLine": true,
+  "plugins": [
+    "@ianvs/prettier-plugin-sort-imports",
+    "prettier-plugin-tailwindcss"
+  ],
+  "importOrder": [
+    "<BUILTIN_MODULES>",
+    "",
+    "^(^react$|@react|react)",
+    "",
+    "<THIRD_PARTY_MODULES>",
+    "",
+    "^@(.*)$",
+    "",
+    "^[./]"
+  ],
+  "importOrderParserPlugins": ["importAssertions", "typescript", "jsx"],
+  "overrides": [
+    {
+      "files": ["*.js", "*.cjs", "*.mjs"],
+      "options": {
+        "parser": "meriyah"
+      }
+    },
+    {
+      "files": ["*.ts", "*.cts"],
+      "options": {
+        "parser": "typescript"
+      }
+    },
+    {
+      "files": ["*.json", "*.jsonc", ".*rc"],
+      "options": {
+        "parser": "json"
+      }
+    },
+    {
+      "files": "*.css",
+      "options": {
+        "parser": "css"
+      }
+    }
+  ]
+}
