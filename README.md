@@ -1,3 +1,6 @@
+## Live
+https://stackblitz.com/edit/stackblitz-starters-ggsbam?file=src%2FApp.tsx
+
 ## Case:
 Oncelikle bu repository'yi clonelayın ve bir web uygulaması oluşturun. İstenilen detayları aşağıda bulabilirsiniz.
 
