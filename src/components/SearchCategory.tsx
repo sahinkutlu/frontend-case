@@ -4,6 +4,7 @@ import React, {useEffect, useState} from "react";
 import {reorderCategories, syncLocalStorage} from "@/util";
 import AlertError from "@/components/AlertError";
 import Image from "next/image";
+import Loading from "@/components/Loading";
 
 
 export default function SearchCategory() {
@@ -14,6 +15,7 @@ export default function SearchCategory() {
 
     const [categories, setCategories] = useState<Array<string>>([]);
     const [selectedCategories, setSelectedCategories] = useState<Array<string>>(getSelectedCategories());
+    const [loading, setLoading] = useState<boolean>(true);
 
     const [search, setSearch] = useState<string>('');
     const [error, setError] = useState<string>('');
@@ -27,10 +29,14 @@ export default function SearchCategory() {
     }, [selectedCategories]);
 
     const getCategories = () => {
-        fetch('./items.json')
-            .then(res => res.json())
-            .then(data => setCategories(reorderCategories(data.data, selectedCategories)))
-            .catch(() => setError("Kategoriler yüklenirken bir hata oluştu"));
+        setLoading(true);
+        setTimeout(() => {
+            fetch('./items.json')
+                .then(res => res.json())
+                .then(data => setCategories(reorderCategories(data.data, selectedCategories)))
+                .catch(() => setError("Kategoriler yüklenirken bir hata oluştu"))
+                .finally(() => setLoading(false));
+        }, 1500); // I added this timeout to show the loading animation
     };
 
     useEffect(() => {
@@ -64,24 +70,28 @@ export default function SearchCategory() {
                     <Image src="/assets/search.svg" alt="Search Icon" width={14} height={14}/>
                 </button>
             </div>
-            {error ? <AlertError error={error}/> : <ul className="flex flex-col gap-2
+            {loading ? <Loading/>
+                : error ? <AlertError error={error}/>
+                    :
+                    <ul className="flex flex-col gap-2
                                max-h-[12rem] w-full px-1
                                overflow-y-auto scrollbar scrollbar-track-[#E8E6E7] scrollbar-thumb-[#C5C3BE] scrollbar-w-[0.25rem]">
-                {categories.filter(item => item.toLowerCase().includes(search.toLowerCase())).length === 0 ?
-                    <AlertError error="Malesef hiç kategori bulunamadı"/> :
-                    categories.filter(item => item.toLowerCase().includes(search.toLowerCase())).map((item: string, index: number) =>
-                        <li key={item + index}
-                            className="flex items-center gap-2">
-                            <input type="checkbox"
-                                   value={item}
-                                   checked={selectedCategories.includes(item)}
-                                   onChange={handleCategoryChange}
-                                   className="w-4 h-4 appearance-none checked:bg-blue-400 border-white border-[3px] ring-[1px] ring-[#D4D3CF] focus:ring-ring-[#D4D3CF]"/>
-                            <span className="text-[0.8rem]">
+                        {categories.filter(item => item.toLowerCase().includes(search.toLowerCase())).length === 0 ?
+                            <AlertError error="Malesef hiç kategori bulunamadı"/> :
+                            categories.filter(item => item.toLowerCase().includes(search.toLowerCase())).map((item: string, index: number) =>
+                                <li key={item + index}
+                                    className="flex items-center gap-2">
+                                    <input type="checkbox"
+                                           value={item}
+                                           checked={selectedCategories.includes(item)}
+                                           onChange={handleCategoryChange}
+                                           className="w-4 h-4 appearance-none checked:bg-blue-400 border-white border-[3px] ring-[1px] ring-[#D4D3CF] focus:ring-ring-[#D4D3CF]"/>
+                                    <span className="text-[0.8rem]">
                             {item}
                         </span>
-                        </li>)}
-            </ul>}
+                                </li>)}
+                    </ul>
+            }
             <button className="w-full bg-[#3064D0] text-white py-2 rounded-md">Ara</button>
         </div>
     )
