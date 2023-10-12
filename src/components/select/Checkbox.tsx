@@ -14,7 +14,7 @@ const Checkbox = ({label,onToggle,checked=false}:CheckboxProps) => {
         <span className='w-5 h-5 border-2 flex p-0.5'>
             {checked&&<span className='bg-blue-500 w-full h-full' />}
         </span>
-        <span>{label}</span>
+        <span dangerouslySetInnerHTML={{__html:label}}/>
     </motion.button>
   )
 }
