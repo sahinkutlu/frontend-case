@@ -1,24 +1,17 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+
+import MultiSelect from "./components/MultiSelect";
+import "./App.css";
 
 function App() {
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="m-0 p-0 box-border">
+      <div className=" flex justify-center h-screen w-screen ">
+        <div className="w-[400px] mt-20 mb-10 flex flex-col bg-gray-100 rounded border-2 border-stone-300 px-6 py-4">
+          <span className="mb-2 mx-2 font-medium">Kategoriler</span>
+          <MultiSelect />
+        </div>
+      </div>
     </div>
   );
 }
