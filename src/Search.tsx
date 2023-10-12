@@ -12,7 +12,7 @@ export default function Search(props: SearchProps) {
 
     useEffect(() => {
         const pipe = onSearch.pipe(
-            auditTime(2500)
+            auditTime(1000)
         ).subscribe((val: string) => {
             setSearchText((val || '').toLocaleLowerCase())
         })
