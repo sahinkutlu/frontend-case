@@ -53,8 +53,8 @@ function MultiSelect() {
             setSearchClicked(false);
             setSearchTerm(searchTerm);
           }}
-          className="border-2 border-slate-400 px-2 py-2 rounded-md"
-          style={{ width: "-moz-available" }}
+          className="multiselect-input border-2 border-slate-400 px-2 py-2 rounded-md"
+
           placeholder="kategori ara..."
         />
         <svg
