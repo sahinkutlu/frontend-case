@@ -16,5 +16,5 @@ const useDebounce = <T extends unknown>(initialValue: T, timeOutInMs = 500): T =
 
   return value;
 };
+
 export default useDebounce;
-export { useDebounce };
