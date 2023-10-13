@@ -23,7 +23,7 @@ const CategoryItem = ({item, checked, onChange, index}: PropsCategoryItem) => {
                    onChange={onChange}
                    className="w-4 h-4 shrink-0 appearance-none checked:bg-blue-400 border-white border-[3px] ring-[1px] ring-[#D4D3CF] focus:ring-ring-[#D4D3CF]"/>
             <span className="text-[0.8rem]">
-                            {item}
+                            {item.replace(/&amp;/g, '&')}
                         </span>
         </motion.li>
     )
