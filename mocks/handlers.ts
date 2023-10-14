@@ -4,7 +4,7 @@ import { rest } from "msw";
 // import shuffleArray from "./utils";
 
 const handlers = [
-  rest.get("/users", () => {}),
+  rest.get("/options", () => {}),
 
   /*
   rest.get("/user/:id", (req, res, ctx) => {}),
