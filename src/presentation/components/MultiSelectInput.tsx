@@ -1,4 +1,11 @@
-import React, { Dispatch, SetStateAction, useCallback, useState } from "react";
+import React, {
+  Dispatch,
+  SetStateAction,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
+import { useInView } from "react-intersection-observer";
 
 import { TOption } from "@domain/options.dto";
 import SearchIcon from "@presentation/components/Icons/SearchIcon";
@@ -17,6 +24,7 @@ interface MultiselectInputProps {
   isLoading: boolean;
   setSelectedOptions: Dispatch<SetStateAction<TOption[]>>;
   setSearchQuery: Dispatch<SetStateAction<string>>;
+  inViewHandler: Dispatch<SetStateAction<boolean>>;
 }
 
 const MultiselectInput: React.FC<MultiselectInputProps> = ({
@@ -29,7 +37,10 @@ const MultiselectInput: React.FC<MultiselectInputProps> = ({
   data,
   setSelectedOptions,
   setSearchQuery,
+  inViewHandler,
 }) => {
+  const { ref, inView } = useInView();
+
   const [selectedValues, setSelectedValues] = useState<string[]>(
     selectedOptions.map(({ value }) => value)
   );
@@ -43,7 +54,6 @@ const MultiselectInput: React.FC<MultiselectInputProps> = ({
     setSelectedOptions(
       selectedOptions.filter((selectedOption) => selectedOption.value !== value)
     );
-
     setSelectedValues((prevState) => prevState.filter((item) => item !== value));
   };
 
@@ -59,13 +69,9 @@ const MultiselectInput: React.FC<MultiselectInputProps> = ({
     ...data.filter(({ value }) => !selectedValues.includes(value)),
   ];
 
-  /*   useEffect(() => {
-    if (inView && hasNextPage) {
-      fetchNextPage()
-        .then(() => {})
-        .catch(() => {});
-    }
-  }, [inView, fetchNextPage, hasNextPage]); */
+  useEffect(() => {
+    inViewHandler(inView);
+  }, [inViewHandler, inView]);
 
   const content = options.map((option, i) => {
     const inputId = `checked-checkbox-${label}-${option.value}`;
@@ -75,7 +81,7 @@ const MultiselectInput: React.FC<MultiselectInputProps> = ({
       return (
         <SelectOption
           key={inputId}
-          // ref={ref}
+          ref={ref}
           inputId={inputId}
           option={option}
           checked={checked}
