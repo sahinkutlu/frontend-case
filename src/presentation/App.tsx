@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 
+import useDebounce from "@application/hooks/useDebounce";
 import useLocalStorage from "@application/hooks/useLocalStorage";
 import { TOption } from "@domain/options.dto";
 import service from "@infrastructure/api/service";
@@ -11,6 +12,7 @@ const App = () => {
   const limit = 10;
   const [hasToPrefetch, setHasToPrefetch] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const query = useDebounce<string>(searchQuery, 500);
 
   const [selectedOptions, setSelectedOptions] = useLocalStorage<TOption[]>(
     "selectedOptions",
@@ -27,10 +29,10 @@ const App = () => {
     isFetchingNextPage,
     hasNextPage,
   } = useInfiniteQuery<TOption[], Error>({
-    queryKey: ["options", searchQuery],
+    queryKey: ["options", query],
     queryFn: ({ pageParam = 1 }: { pageParam?: number }) => service.getOptions({
         page: pageParam,
-        query: searchQuery,
+        query,
       }),
     getNextPageParam: (lastPage, allPages) => {
       const nextPage =        lastPage.length === limit ? allPages.length + 1 : undefined;
