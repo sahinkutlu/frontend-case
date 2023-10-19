@@ -131,11 +131,16 @@ const MultiselectInput: React.FC<MultiselectInputProps> = ({
           />
         </div>
       </div>
-      <ul className="h-48 overflow-y-auto px-3 pb-3 text-sm text-gray-700 dark:text-gray-200">
+      <ul className="relative h-48 overflow-y-auto px-3 pb-3 text-sm text-gray-700 dark:text-gray-200">
         {content}
-        {errorMessage && <ErrorBox message={errorMessage} />}
+        {errorMessage && <ErrorBox height={50} message={errorMessage} />}
         {isLoading && (
-          <div>
+          <div
+            className={
+              inView
+                ? ""
+                : "absolute left-1/2 top-2/4 -translate-x-1/2 -translate-y-1/2"
+            }>
             <Spinner />
           </div>
         )}
