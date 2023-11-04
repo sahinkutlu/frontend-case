@@ -1,20 +1,15 @@
-import { useDispatch } from 'react-redux'
-import { clearSearchCategory, searchCategory } from '../redux/category/category.action'
+import searchSvg from '../assets/search.svg'
+interface ISearchInput {
+  onChange: (arg0: string) => void
+}
 
-export default function SearchInput() {
-  const dispatch = useDispatch()
-
-  const handleSearch = (value: string) => {
-    if (value.length > 2) {
-      dispatch(searchCategory(value))
-    } else {
-      dispatch(clearSearchCategory())
-    }
-  }
-
+export default function SearchInput({ onChange }: ISearchInput) {
   return (
-    <div>
-      <input type='text' onChange={e => handleSearch(e.target?.value || '')} placeholder='Search...' />
+    <div className='input__wrapper'>
+      <input className='searchInput' type='text' onChange={e => onChange(e.target?.value || '')} placeholder='kategori ara...' />
+      <div className='searchIcon'>
+        <img src={searchSvg} />
+      </div>
     </div>
   )
 }
