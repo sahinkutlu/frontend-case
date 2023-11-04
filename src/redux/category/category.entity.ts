@@ -8,5 +8,5 @@ export interface SearchDataState {
   categories: ISearchData[]
   search: ISearchData[]
   isLoading: boolean
-  err: any
+  err: unknown
 }

@@ -20,6 +20,7 @@ const categorySlice = createSlice({
     })
     builder.addCase(getCategories.fulfilled, (state, action) => {
       state.isLoading = false
+      if (action.payload !== undefined)
       state.categories = action.payload
     })
     builder.addCase(getCategories.rejected, (state, action) => {

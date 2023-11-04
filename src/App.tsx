@@ -1,13 +1,13 @@
 import { useEffect } from 'react'
 import MultipleSearch from './components/MultipleSearch'
-import { actions, useAppSelector } from './redux/store'
+import { actions, useAppSelector, AppDispatch } from './redux/store'
 import { useDispatch } from 'react-redux'
 import { ISearchData } from './redux/category/category.entity'
 import { clearSearchCategory, searchCategory, toggleCategory } from './redux/category/category.action'
 import './App.css'
 
 function App() {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch<AppDispatch>()
 
   const searchData = useAppSelector(state => state.category.categories.filter(item => item.checked === false))
   const searchDataChecked = useAppSelector(state => state.category.categories.filter(item => item.checked))

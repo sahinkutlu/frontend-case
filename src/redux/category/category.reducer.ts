@@ -1,5 +1,5 @@
 import { PayloadAction } from '@reduxjs/toolkit'
-import { SearchDataState } from './category.entity'
+import { ISearchData, SearchDataState } from './category.entity'
 
 export default {
   'load': (state: SearchDataState) => {
@@ -32,7 +32,7 @@ export default {
         .map(item => {
           if (item.id !== action.payload) return item
         })
-        .filter(item => item)
+        .filter(item => item) as ISearchData[]
     } else {
       state.search = []
     }
