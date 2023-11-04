@@ -5,6 +5,7 @@ import { getCategories } from './category.action'
 
 export const initialState: SearchDataState = {
   categories: [],
+  search: [],
   isLoading: false,
   err: null,
 }

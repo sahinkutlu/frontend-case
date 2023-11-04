@@ -3,7 +3,7 @@ import { ISearchData } from './category.entity'
 
 export const getCategories = createAsyncThunk('category/load', async () => {
   try {
-    const category: ISearchData[] = JSON.parse(localStorage.getItem('category')) || []
+    const category: ISearchData[] = JSON.parse(localStorage.getItem('category') || '[]')
     if (category.length > 0) return category
     const response = await fetch('./items.json')
     if (!response.ok) {
@@ -24,3 +24,5 @@ export const getCategories = createAsyncThunk('category/load', async () => {
 
 export const toggleCategory = createAction<string>('category/toggle')
 export const loadCategory = createAction<ISearchData>('category/load')
+export const searchCategory = createAction<string>('category/search')
+export const clearSearchCategory = createAction<string | undefined>('category/clearSearch')
