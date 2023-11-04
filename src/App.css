@@ -108,7 +108,7 @@
   margin-right: 20px;
 }
 
-.list:first-child {
+.list:first-child:has(.checked) {
   color: var(--textColor);
 }
 
