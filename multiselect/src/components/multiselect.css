@@ -1,0 +1,51 @@
+.multi-select-dropdown {
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+  border: 2px solid #868383;
+  border-radius: 5px;
+  padding: 0 10px 10px 10px;
+  min-width: 350px;
+  max-width: 350px;
+  white-space: nowrap;
+  overflow: auto;
+  text-overflow: ellipsis;
+  max-height: 500px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.selected-items {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.search-input {
+  width: 90%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  margin-top: 5px;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.options {
+  list-style: none;
+  padding-left: 3px;
+}
+
+.search-bar {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background-color: #fff;
+  padding: 8px;
+}
