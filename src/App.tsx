@@ -42,14 +42,15 @@ function App() {
         <SearchBox onChange={onSearchChange} />
         <div className="category-wrapper">
           {
-            categories.map(item => (
-              <div data-testid="category-item" onClick={() => onCategoryToggle(item)} key={item} className="category-item">
-                <div className={`${selectedCategories.includes(item) ? 'active' : ''} select-box`}>
-                  <div />
+            categories.length > 0 ?
+              categories.map(item => (
+                <div data-testid="category-item" onClick={() => onCategoryToggle(item)} key={item} className="category-item">
+                  <div className={`${selectedCategories.includes(item) ? 'active' : ''} select-box`}>
+                    <div />
+                  </div>
+                  <span className={`${selectedCategories.includes(item) ? 'selected-text' : ''} category-text`}>{item}</span>
                 </div>
-                <span className={`${selectedCategories.includes(item) ? 'selected-text' : ''} category-text`}>{item}</span>
-              </div>
-            ))
+              )) : <div>Veri bulunamadı</div>
           }
         </div>
         <button className="search-button">Ara</button>
