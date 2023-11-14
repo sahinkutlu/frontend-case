@@ -12,5 +12,8 @@ test('renders learn react link', () => {
   const selectedCategoryItem = screen.getAllByTestId("selected-category-item");
   userEvent.click(selectedCategoryItem[0]);
 
+  const submitButton = screen.getByTestId("submit-button");
+  userEvent.click(submitButton);
+
   expect(linkElement).toBeInTheDocument();
 });
