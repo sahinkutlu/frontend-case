@@ -11,7 +11,7 @@ export default function Home() {
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [filteredCategories, setFilteredCategories] = useState([]);
   const [selectedItems, setSelectedItems] = useState([]);
-  const [filterText, setFilterText] = useState("");
+  const [filterText, setFilterText] = useState('');
   const [cookies, setCookie] = useCookies(['']);
 
   useEffect(() => {
@@ -78,7 +78,6 @@ export default function Home() {
       const newArr = [...newSelected, ...nonSelected];
       setCookie('selectedItems', selectedItems, { path: '/' });
       setFilteredCategories(newArr);
-      //setFilteredCategories(filteredCategories_);
     }
   }, [filterText]);
 
