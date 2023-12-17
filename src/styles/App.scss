@@ -14,8 +14,9 @@
   width: 400px;
   background-color: $color-light-gray;
   display: flex;
-  align-items: center;
   justify-content: center;
+  flex-direction: column;
+  row-gap: 12px;
   @media screen and (max-width: 768px) {
     width: auto;
   }

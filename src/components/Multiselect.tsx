@@ -1,6 +1,8 @@
 import React, {
   ChangeEventHandler,
   FocusEventHandler,
+  KeyboardEventHandler,
+  MouseEventHandler,
   ReactElement,
   useCallback,
   useEffect,
@@ -29,6 +31,9 @@ type MultiselectProps = {
   inputDebounce?: number
   loading?: boolean
   error?: Error | null
+  searchType?: 'submit' | 'change'
+  searchButtonClasses?: string
+  searchButtonText?: string
   renderChoiceItem?: (choiceItem: ChoiceItem) => ReactElement
   renderSelectedChoiceItem?: (selectedChoiceItem: ChoiceItem) => ReactElement
   onSelectedsChange?: (items: ChoiceItem[]) => void
@@ -68,6 +73,9 @@ const Multiselect = ({
   onSelectedsChange,
   loading,
   error,
+  searchType = 'submit',
+  searchButtonClasses,
+  searchButtonText = 'Search',
 }: MultiselectProps) => {
   const [isResultOpen, setIsResultOpen] = useState<boolean>(
     defaultOpen || false
@@ -81,6 +89,7 @@ const Multiselect = ({
       : []
   )
   const containerRef = useRef<HTMLDivElement>(null)
+  const inputRef = useRef<HTMLInputElement>(null)
 
   const getQueryText = (val: string) =>
     slugify(val, {
@@ -175,11 +184,37 @@ const Multiselect = ({
       if (onInputValChange) {
         onInputValChange(e.target.value)
       }
+      if (searchType === 'submit') return
       inputValChange(e.target.value)
     },
     [onInputValChange, inputValChange]
   )
 
+  const handleInputKeydown: KeyboardEventHandler<HTMLInputElement> =
+    useCallback(
+      (e) => {
+        if (error) return
+        if (searchType === 'change') return
+        if (e.key === 'Enter' && !e.ctrlKey && !e.shiftKey) {
+          inputValChange(e.currentTarget.value)
+        }
+      },
+      [inputValChange]
+    )
+
+  const handleSearchButtonClick: MouseEventHandler<
+    HTMLButtonElement | HTMLElement
+  > = useCallback(
+    (e) => {
+      e.preventDefault()
+      if (searchType === 'change') return
+
+      if (inputRef.current) {
+        inputValChange(inputRef.current.value)
+      }
+    },
+    [inputValChange]
+  )
   const handleChoiceItemChecked = useCallback(
     (id: string | number, value: boolean) => {
       const foundItem = selecteds.find((item) => item.id === id)
@@ -317,6 +352,8 @@ const Multiselect = ({
             [styles.noSearchIcon]: Boolean(noSearchIcon),
           })}
           onChange={handleInputChange}
+          ref={inputRef}
+          onKeyDown={handleInputKeydown}
         />
         {loading ? <Loading /> : searchIcon && searchIcon}
 
@@ -333,6 +370,10 @@ const Multiselect = ({
           {FilteredChoicesArea}
         </div>
       )}
+
+      <div className={clsx(styles.button, searchButtonClasses)}>
+        <button onClick={handleSearchButtonClick}>{searchButtonText}</button>
+      </div>
     </div>
   )
 }

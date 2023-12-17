@@ -99,6 +99,19 @@
     color: $color-dark-black;
     font-size: 0.8rem;
   }
+
+  .button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 18px;
+    button {
+      width: 100%;
+      background-color: $color-blue;
+      color: white;
+      font-size: 0.9rem;
+    }
+  }
 }
 
 .loading {
