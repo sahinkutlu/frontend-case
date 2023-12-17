@@ -1,7 +1,7 @@
 import { QueryOptions, useQuery } from '@tanstack/react-query'
 import { API } from './axios'
 
-export const getCategories = (opts: QueryOptions<string[]> = {}) => {
+export const useGetCategories = (opts: QueryOptions<string[]> = {}) => {
   return useQuery<string[]>({
     queryKey: ['categories'],
     async queryFn() {

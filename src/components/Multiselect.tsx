@@ -42,7 +42,6 @@ type MultiselectProps = {
     filteredItems: ChoiceItem[],
     inputVal: string
   ) => string | ReactElement
-  filter?: (items: ChoiceItem[]) => boolean
 }
 
 const DefaultSearchIcon = (
@@ -187,7 +186,7 @@ const Multiselect = ({
       if (searchType === 'submit') return
       inputValChange(e.target.value)
     },
-    [onInputValChange, inputValChange]
+    [onInputValChange, inputValChange, error, searchType]
   )
 
   const handleInputKeydown: KeyboardEventHandler<HTMLInputElement> =
@@ -199,7 +198,7 @@ const Multiselect = ({
           inputValChange(e.currentTarget.value)
         }
       },
-      [inputValChange]
+      [inputValChange, error, searchType]
     )
 
   const handleSearchButtonClick: MouseEventHandler<
@@ -213,7 +212,7 @@ const Multiselect = ({
         inputValChange(inputRef.current.value)
       }
     },
-    [inputValChange]
+    [inputValChange, searchType]
   )
   const handleChoiceItemChecked = useCallback(
     (id: string | number, value: boolean) => {
@@ -230,7 +229,7 @@ const Multiselect = ({
         setSelecteds((prev) => uniqBy([...prev, newItem], 'id'))
       }
     },
-    [selecteds]
+    [selecteds, choices]
   )
 
   const handleContainertOnFocus: FocusEventHandler<HTMLDivElement> = (e) => {
@@ -271,7 +270,7 @@ const Multiselect = ({
         </div>
       )
     })
-  }, [filteredChoices])
+  }, [filteredChoices, handleChoiceItemChecked, renderSelectedChoiceItem])
 
   const FilteredChoicesArea = useMemo(() => {
     return filteredChoices.nonSelectedChoices.map((item, i) => {
@@ -297,7 +296,7 @@ const Multiselect = ({
         </div>
       )
     })
-  }, [filteredChoices])
+  }, [filteredChoices, handleChoiceItemChecked, renderChoiceItem])
 
   const FilterMessage = useMemo(() => {
     if (renderFilterMessage) {
@@ -329,7 +328,7 @@ const Multiselect = ({
     if (onSelectedsChange) {
       onSelectedsChange(selecteds)
     }
-  }, [selecteds])
+  }, [selecteds, onSelectedsChange, saveToLocaleStorage])
 
   return (
     <div

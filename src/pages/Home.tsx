@@ -1,8 +1,8 @@
 import Multiselect from '@/components/Multiselect'
-import { getCategories } from '@/api/category'
+import { useGetCategories } from '@/api/category'
 
 const Home = () => {
-  const { data: choices = [], isLoading, error } = getCategories()
+  const { data: choices = [], isLoading, error } = useGetCategories()
   return (
     <div className="container">
       <div className="category-container">
