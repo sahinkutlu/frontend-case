@@ -12,6 +12,7 @@ const Home = () => {
           loading={isLoading}
           error={error}
           searchButtonText="Ara"
+          inputProps={{ placeholder: 'kategori ara...' }}
         />
       </div>
     </div>

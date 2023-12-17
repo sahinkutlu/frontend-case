@@ -1,6 +1,7 @@
 import React, {
   ChangeEventHandler,
   FocusEventHandler,
+  InputHTMLAttributes,
   KeyboardEventHandler,
   MouseEventHandler,
   ReactElement,
@@ -34,6 +35,7 @@ type MultiselectProps = {
   searchType?: 'submit' | 'change'
   searchButtonClasses?: string
   searchButtonText?: string
+  inputProps?: InputHTMLAttributes<HTMLInputElement>
   renderChoiceItem?: (choiceItem: ChoiceItem) => ReactElement
   renderSelectedChoiceItem?: (selectedChoiceItem: ChoiceItem) => ReactElement
   onSelectedsChange?: (items: ChoiceItem[]) => void
@@ -75,6 +77,7 @@ const Multiselect = ({
   searchType = 'submit',
   searchButtonClasses,
   searchButtonText = 'Search',
+  inputProps = {},
 }: MultiselectProps) => {
   const [isResultOpen, setIsResultOpen] = useState<boolean>(
     defaultOpen || false
@@ -353,6 +356,7 @@ const Multiselect = ({
           onChange={handleInputChange}
           ref={inputRef}
           onKeyDown={handleInputKeydown}
+          {...inputProps}
         />
         {loading ? <Loading /> : searchIcon && searchIcon}
 
@@ -370,9 +374,11 @@ const Multiselect = ({
         </div>
       )}
 
-      <div className={clsx(styles.button, searchButtonClasses)}>
-        <button onClick={handleSearchButtonClick}>{searchButtonText}</button>
-      </div>
+      {searchType === 'submit' && (
+        <div className={clsx(styles.button, searchButtonClasses)}>
+          <button onClick={handleSearchButtonClick}>{searchButtonText}</button>
+        </div>
+      )}
     </div>
   )
 }
