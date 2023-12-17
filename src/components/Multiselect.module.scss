@@ -25,6 +25,7 @@
       border-radius: 4px;
       border: 1px solid $color-gray;
       padding: 0 10px;
+      font-size: 0.9rem;
       &:not(.noSearchIcon) {
         padding-right: 32px;
       }
@@ -56,6 +57,38 @@
     display: flex;
     flex-direction: column;
     row-gap: 6px;
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: $bg-scrollbar-thumb;
+      border-radius: 16px;
+    }
+    &::-webkit-scrollbar-track {
+      background: $bg-scrollbar-track;
+    }
+
+    &::-moz-scrollbar {
+      width: 6px;
+    }
+    &::-moz-scrollbar-thumb {
+      background-color: $bg-scrollbar-thumb;
+      border-radius: 16px;
+    }
+    &::-moz-scrollbar-track {
+      background: $bg-scrollbar-track;
+    }
+
+    &::-o-scrollbar {
+      width: 6px;
+    }
+    &::-o-scrollbar-thumb {
+      background-color: $bg-scrollbar-thumb;
+      border-radius: 16px;
+    }
+    &::-o-scrollbar-track {
+      background: $bg-scrollbar-track;
+    }
     .resultItem {
       display: flex;
       align-items: center;
@@ -73,7 +106,7 @@
         cursor: pointer;
         &:checked::after {
           content: '';
-          color: #fff;
+          color: #666565;
           border: 5px solid $color-blue;
           position: absolute;
           left: 50%;
