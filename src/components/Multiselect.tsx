@@ -13,7 +13,7 @@ import clsx from 'clsx'
 import { debounce, sortBy, truncate, uniqBy } from 'lodash'
 import slugify from 'slugify'
 
-interface ChoiceItem extends Record<string, unknown> {
+export interface ChoiceItem extends Record<string, unknown> {
   id: number | string
   label: string
 }
@@ -27,6 +27,8 @@ type MultiselectProps = {
   customSearchIcon?: ReactElement
   saveToLocaleStorage?: boolean
   inputDebounce?: number
+  loading?: boolean
+  error?: Error | null
   renderChoiceItem?: (choiceItem: ChoiceItem) => ReactElement
   renderSelectedChoiceItem?: (selectedChoiceItem: ChoiceItem) => ReactElement
   onSelectedsChange?: (items: ChoiceItem[]) => void
@@ -64,6 +66,8 @@ const Multiselect = ({
   renderChoiceItem,
   renderSelectedChoiceItem,
   onSelectedsChange,
+  loading,
+  error,
 }: MultiselectProps) => {
   const [isResultOpen, setIsResultOpen] = useState<boolean>(
     defaultOpen || false
@@ -167,6 +171,7 @@ const Multiselect = ({
 
   const handleInputChange: ChangeEventHandler<HTMLInputElement> = useCallback(
     (e) => {
+      if (error) return
       if (onInputValChange) {
         onInputValChange(e.target.value)
       }
@@ -293,7 +298,13 @@ const Multiselect = ({
 
   return (
     <div
-      className={styles.container}
+      className={clsx(styles.container, {
+        [styles.gap]:
+          isResultOpen &&
+          (filteredChoices.selectedChoices.length > 0 ||
+            filteredChoices.nonSelectedChoices.length > 0) &&
+          !error,
+      })}
       tabIndex={-1}
       ref={containerRef}
       onFocus={handleContainertOnFocus}
@@ -307,8 +318,13 @@ const Multiselect = ({
           })}
           onChange={handleInputChange}
         />
-        {searchIcon && searchIcon}
-        {FilterMessage}
+        {loading ? <Loading /> : searchIcon && searchIcon}
+
+        {error ? (
+          <div className={styles.errorText}>{error.message}</div>
+        ) : (
+          FilterMessage
+        )}
       </div>
 
       {isResultOpen && (
@@ -322,3 +338,14 @@ const Multiselect = ({
 }
 
 export default Multiselect
+
+const Loading = () => {
+  return (
+    <div className={styles.loading}>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  )
+}
