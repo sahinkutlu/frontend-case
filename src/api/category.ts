@@ -5,7 +5,7 @@ export const useGetCategories = (opts: QueryOptions<string[]> = {}) => {
   return useQuery<string[]>({
     queryKey: ['categories'],
     async queryFn() {
-      const { data } = await API.get('assets/items.json')
+      const { data } = await API.get('./items.json')
       return data.data
     },
     ...opts,
