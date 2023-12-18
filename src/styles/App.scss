@@ -1,0 +1,23 @@
+@import '@/styles/variables.scss';
+
+.container {
+  width: 100dvw;
+  height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.category-container {
+  border: 1px solid $color-gray;
+  border-radius: 4px;
+  padding: 24px;
+  width: 400px;
+  background-color: $color-light-gray;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  row-gap: 12px;
+  @media screen and (max-width: 768px) {
+    width: auto;
+  }
+}

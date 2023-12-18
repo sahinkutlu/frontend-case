@@ -1,0 +1,182 @@
+@import '@/styles/variables.scss';
+
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  &.gap {
+    row-gap: 20px;
+  }
+  &:focus {
+    outline: 0;
+  }
+  .inputArea {
+    height: 38px;
+    width: 100%;
+    border: 0;
+    display: flex;
+    align-items: center;
+    position: relative;
+    flex-wrap: wrap;
+    .input {
+      width: 100%;
+      height: 100%;
+      border-radius: inherit;
+      border-radius: 4px;
+      border: 1px solid $color-gray;
+      padding: 0 10px;
+      font-size: 0.9rem;
+      &:not(.noSearchIcon) {
+        padding-right: 32px;
+      }
+      &:focus {
+        outline: 0;
+      }
+    }
+    .searchIcon {
+      width: 20px;
+      height: 20px;
+      position: absolute;
+      right: 12px;
+    }
+    .defaultSearchIcon {
+      fill: $color-dark-black;
+    }
+    .filterResultText {
+      flex: 1;
+      font-size: 0.7rem;
+      color: $color-dark-black;
+      padding: 0 1px;
+    }
+  }
+
+  .resultArea {
+    width: 100%;
+    max-height: 200px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    row-gap: 6px;
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: $bg-scrollbar-thumb;
+      border-radius: 16px;
+    }
+    &::-webkit-scrollbar-track {
+      background: $bg-scrollbar-track;
+    }
+
+    &::-moz-scrollbar {
+      width: 6px;
+    }
+    &::-moz-scrollbar-thumb {
+      background-color: $bg-scrollbar-thumb;
+      border-radius: 16px;
+    }
+    &::-moz-scrollbar-track {
+      background: $bg-scrollbar-track;
+    }
+
+    &::-o-scrollbar {
+      width: 6px;
+    }
+    &::-o-scrollbar-thumb {
+      background-color: $bg-scrollbar-thumb;
+      border-radius: 16px;
+    }
+    &::-o-scrollbar-track {
+      background: $bg-scrollbar-track;
+    }
+    .resultItem {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      input {
+        appearance: initial;
+        -webkit-appearance: initial;
+        -moz-appearance: initial;
+        -o-appearance: initial;
+        background: white;
+        width: 1rem;
+        height: 1rem;
+        border: 1px solid $color-gray;
+        position: relative;
+        cursor: pointer;
+        &:checked::after {
+          content: '';
+          color: #666565;
+          border: 5px solid $color-blue;
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          -webkit-transform: translate(-50%, -50%);
+          -moz-transform: translate(-50%, -50%);
+          -ms-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+        }
+      }
+      label {
+        font-size: 0.8rem;
+        transition: color 0.1s;
+        cursor: pointer;
+        &.selected {
+          color: $color-blue;
+        }
+      }
+    }
+  }
+
+  .errorText {
+    color: $color-dark-black;
+    font-size: 0.8rem;
+  }
+
+  .button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 18px;
+    button {
+      width: 100%;
+      background-color: $color-blue;
+      color: white;
+      font-size: 0.9rem;
+    }
+  }
+}
+
+.loading {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  right: 12px;
+}
+.loading div {
+  box-sizing: border-box;
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border: 3px solid $color-dark-black;
+  border-radius: 50%;
+  animation: loading 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  border-color: $color-dark-black transparent transparent transparent;
+}
+.loading div:nth-child(1) {
+  animation-delay: -0.45s;
+}
+.loading div:nth-child(2) {
+  animation-delay: -0.3s;
+}
+.loading div:nth-child(3) {
+  animation-delay: -0.15s;
+}
+@keyframes loading {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
