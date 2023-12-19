@@ -1,0 +1,123 @@
+:root {
+  --borderColor: #d5d4d0;
+  --border: 2px solid var(--borderColor);
+  --borderThin: 1px solid var(--borderColor);
+  --borderRadius: 6px;
+  --bgColor: #f8f8f8;
+  --textColor: #3064d0;
+  --boxSize: 16px;
+}
+
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.multiplesearch__wrapper {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  padding: 2rem;
+  text-align: left;
+  border: var(--border);
+  border-radius: var(--borderRadius);
+  background-color: var(--bgColor);
+}
+
+.input__wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.list__container {
+  overflow-y: auto;
+  max-height: calc(100vh / 2);
+  margin: 20px 0;
+}
+
+.list__container::-webkit-scrollbar {
+  width: 6px;
+}
+
+/* Track */
+.list__container::-webkit-scrollbar-track {
+  background: rgba(128, 128, 128, 0.24);
+  border-radius: var(--borderRadius);
+}
+
+/* Handle */
+.list__container::-webkit-scrollbar-thumb {
+  background: grey;
+  border-radius: var(--borderRadius);
+}
+
+/* Handle on hover */
+.list__container::-webkit-scrollbar-thumb:hover {
+  background: grey;
+}
+
+.searchInput {
+  width: 100%;
+  padding: 8px;
+  border: var(--border);
+  border-radius: var(--borderRadius);
+}
+
+.searchIcon {
+  position: absolute;
+  right: 10px;
+}
+
+.checked__wrapper {
+  text-align: left;
+}
+
+.checkbox__wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  cursor: pointer;
+  gap: 12px;
+  margin: 12px 0;
+}
+
+.check {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--boxSize);
+  height: var(--boxSize);
+  background-color: var(--bgColor);
+  border: var(--border);
+}
+
+.checked {
+  --bgColor: var(--textColor);
+  width: calc(var(--boxSize) - 4px);
+  height: calc(var(--boxSize) - 4px);
+  background-color: var(--bgColor);
+}
+
+.list {
+  padding-right: 0;
+  border-bottom: 2px solid #8080803b;
+  margin-right: 20px;
+}
+
+.list:first-child:has(.checked) {
+  color: var(--textColor);
+}
+
+.button {
+  --border: 2px solid black;
+  text-align: center;
+  color: var(--bgColor);
+  background-color: var(--textColor);
+  padding: 20px;
+  border-bottom: var(--border);
+  border-radius: var(--borderRadius);
+}
