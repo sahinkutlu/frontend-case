@@ -27,7 +27,7 @@ const Popover = (props: PopoverProps) => {
             <div
                 {...popoverProps}
                 ref={popoverRef}
-                className="z-10 w-64 rounded-md border border-gray-300 bg-white shadow-lg"
+                className="z-10 w-64 rounded-lg border border-gray-200 bg-white text-sm text-gray-500 shadow-sm transition-opacity duration-300 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400"
             >
                 {!isNonModal && <DismissButton onDismiss={state.close} />}
                 {children}
