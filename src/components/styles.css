@@ -76,3 +76,8 @@ img {
   gap: 5px;
   align-items: center;
 }
+
+input {
+  border-radius: 10px;
+  padding: 10px;
+}
