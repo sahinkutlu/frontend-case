@@ -68,30 +68,30 @@ const Characters = () => {
 
   return (
     <div className="container">
+      <h1>Let&apos;s Start Searching</h1>
       <input
         type="text"
         placeholder="Search characters..."
         value={inputValue}
         onChange={handleInputChange}
       />
-
       {loading && <p>Loading...</p>}
-
-      <div className="selected-characters">
-        {selectedCharacters.map((characterName) => (
-          <span key={characterName} className="selected-character">
-            {characterName}
-            <button
-              type="button"
-              onClick={() => handleRemoveCharacter(characterName)}
-              className="remove-button"
-            >
-              X
-            </button>
-          </span>
-        ))}
-      </div>
-
+      {selectedCharacters.length > 0 && (
+        <div className="selected-characters">
+          {selectedCharacters.map((characterName) => (
+            <span key={characterName} className="selected-character">
+              {characterName}
+              <button
+                type="button"
+                onClick={() => handleRemoveCharacter(characterName)}
+                className="remove-button"
+              >
+                X
+              </button>
+            </span>
+          ))}
+        </div>
+      )}
       <ul className="character-list">
         {characters.map((character) => (
           <CharacterDetails
