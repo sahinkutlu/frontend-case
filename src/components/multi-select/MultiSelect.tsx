@@ -35,13 +35,13 @@ const MultiSelect = <T extends object>(props: MultiSelectProps<T>) => {
                 {props.label}
             </label>
             <div className="relative mt-1 rounded-md shadow-sm">
-                <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                    <MagnifyingGlassIcon className="h-5 w-5 text-gray-400" />
+                <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-2">
+                    <MagnifyingGlassIcon className="h-3 w-3 text-gray-400" />
                 </div>
                 <input
                     {...inputProps}
                     ref={inputRef}
-                    className="block w-full rounded-md border-gray-300 pl-10 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                    className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-1.5 pl-5 text-sm text-gray-700 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
                 />
                 <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
                     {props.loadingState === "loading" ||
