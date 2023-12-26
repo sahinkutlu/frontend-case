@@ -33,7 +33,7 @@ const RickAndMortySelect = () => {
             loadingState={list.loadingState}
             onLoadMore={list.loadMore}
         >
-            {item => <Item key={item.name}>{item.name}</Item>}
+            {item => <Item key={item.id}>{item.name}</Item>}
         </MultiSelect>
     );
 };
