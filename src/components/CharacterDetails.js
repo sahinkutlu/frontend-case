@@ -12,6 +12,7 @@ const CharacterDetails = ({
       <button
         type="button"
         onClick={() => handleSelectCharacter(character.name)}
+        className="select-button"
       >
         {selectedCharacters.includes(character.name) ? '✔️' : ''}
       </button>
@@ -21,6 +22,7 @@ const CharacterDetails = ({
           alt={character.name}
           className="character-image"
         />
+
         <div className="character-info-last">
           <p className="character-name">
             {inputValue
