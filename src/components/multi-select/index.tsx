@@ -1,2 +1,4 @@
-const test = "i will be multi select component";
-export default test;
+"use client";
+export { default } from "./MultiSelect";
+// eslint-disable-next-line react-refresh/only-export-components
+export * from "./MultiSelectProps";

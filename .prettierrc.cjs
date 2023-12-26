@@ -11,6 +11,7 @@ module.exports = {
     bracketSpacing: true,
 
     importOrder: [
+        "^server-only|client-only$",
         "^react$",
         "<THIRD_PARTY_MODULES>",
         "^@/(.*)$",

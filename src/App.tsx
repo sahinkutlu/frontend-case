@@ -1,11 +1,10 @@
-import test from "@/components/multi-select";
+import MultiSelect from "@/components/multi-select";
 
 function App() {
-    console.log(test);
     return (
-        <>
-            <h1 className="text-2xl italic text-teal-400">Hello TailwindCSS</h1>
-        </>
+        <div className="flex h-screen w-full items-center justify-center">
+            <MultiSelect />
+        </div>
     );
 }
 
