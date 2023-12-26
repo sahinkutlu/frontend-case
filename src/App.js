@@ -1,9 +1,9 @@
 import React from 'react';
-import Character from './components/Characters';
+import Characters from './components/Characters';
 
 const App = () => (
   <div className="App">
-    <Character />
+    <Characters />
   </div>
 );
 
