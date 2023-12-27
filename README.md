@@ -59,7 +59,7 @@
 
 ## 🚀 Live Demo <a name="live-demo"></a>
 
-- [Link will be added soon]()
+- [Live Demo](https://multiselectcase.onrender.com/)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
