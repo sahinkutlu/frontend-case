@@ -1,6 +1,6 @@
 import type { AriaPopoverProps } from "@react-aria/overlays";
 import type { LoadingState, Node } from "@react-types/shared";
-import type { AriaComboBoxProps, AriaListBoxOptions } from "react-aria";
+import type { AriaListBoxOptions, AriaListBoxProps } from "react-aria";
 import type { OverlayTriggerState } from "react-stately";
 import type { ListState } from "react-stately";
 
@@ -19,7 +19,23 @@ export interface PopoverProps extends Omit<AriaPopoverProps, "popoverRef"> {
     state: OverlayTriggerState;
     popoverRef?: React.RefObject<HTMLDivElement>;
 }
-export interface MultiSelectProps<T> extends AriaComboBoxProps<T> {
-    loadingState?: LoadingState;
-    onLoadMore?: () => void;
+type WithoutChildren<T> = Omit<T, "children">;
+export interface MultiSelectProps<T>
+    extends WithoutChildren<AriaListBoxProps<T>> {
+    filterParams?: string[];
+    url?: string;
+    apiResultPath?: string;
+    apiResultCursor?: string;
+    idValue?: string | ((item: Record<string, unknown>) => string);
+    tagValue?: string | ((item: Record<string, unknown>) => string);
+    displayValue?:
+        | string
+        | ((item: Record<string, unknown>) => string | React.ReactNode);
+    listClasses?: string;
+    listItemClasses?: string;
+    containFocus?: boolean;
+    restoreFocus?: boolean;
+    autoFocus?: boolean;
+    selectedItems: T[];
+    onChange: (selectedItems: T[]) => void;
 }

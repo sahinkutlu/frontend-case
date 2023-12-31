@@ -7,9 +7,10 @@ import Option from "./Option";
 
 const ListBox = (props: ListBoxProps) => {
     const ref = React.useRef<HTMLUListElement>(null);
-
-    const { listBoxRef = ref, state } = props;
+    
+    const { listBoxRef = ref, state} = props;
     const { listBoxProps } = useListBox(props, state, listBoxRef);
+
     const onScroll = (e: React.UIEvent) => {
         const scrollOffset =
             e.currentTarget.scrollHeight - e.currentTarget.clientHeight * 2;
@@ -24,7 +25,6 @@ const ListBox = (props: ListBoxProps) => {
             ref={listBoxRef}
             className="my-1 flex max-h-72 w-full flex-col overflow-auto"
             onScroll={onScroll}
-            onSelect={val => console.log(val)}
         >
             {[...state.collection].map(item => (
                 <Option key={item.key} item={item} state={state} />

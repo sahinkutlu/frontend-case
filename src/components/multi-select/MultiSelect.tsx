@@ -1,76 +1,128 @@
-import * as React from "react";
-
-import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
-import { useComboBox, useFilter } from "react-aria";
-import { useComboBoxState } from "react-stately";
+import { XCircleIcon } from "@heroicons/react/16/solid";
+import { ArrowPathIcon } from "@heroicons/react/24/solid";
+import clsx from "clsx";
+import { FocusScope } from "react-aria";
+import {
+    Button,
+    Group,
+    Input,
+    ListBox,
+    ListBoxItem,
+    Popover,
+    TextField,
+} from "react-aria-components";
 
 import { MultiSelectProps } from ".";
-import ListBox from "./ListBox";
-import Popover from "./Popover";
+import useMultiSelect from "./useMultiSelect";
 
 const MultiSelect = <T extends object>(props: MultiSelectProps<T>) => {
-    const { contains } = useFilter({ sensitivity: "base" });
-    const state = useComboBoxState({ ...props, defaultFilter: contains });
-
-    const inputRef = React.useRef(null);
-    const listBoxRef = React.useRef(null);
-    const popoverRef = React.useRef(null);
-
-    const { inputProps, listBoxProps, labelProps } = useComboBox(
-        {
-            ...props,
-            inputRef,
-            listBoxRef,
-            popoverRef,
-        },
-        state
-    );
-
+    const {
+        autoFocus,
+        containFocus = true,
+        restoreFocus,
+        listClasses,
+        listItemClasses,
+        selectedItems,
+        ...rest
+    } = props;
+    const {
+        filterText,
+        inputFieldRef,
+        isLoading,
+        isOpen,
+        items,
+        selectedItemKeys,
+        textFieldRef,
+        textFieldWidth,
+        closeList,
+        getDisplayValue,
+        getIdValue,
+        getTagValue,
+        onClickGroup,
+        onFilterTextChange,
+        onItemSelect,
+        onScroll,
+        openList,
+        removeItem,
+    } = useMultiSelect(props);
     return (
-        <div className="relative inline-block">
-            <label
-                {...labelProps}
-                className="block text-sm font-medium text-gray-700"
+        <>
+            <TextField
+                ref={textFieldRef}
+                className="relative w-full rounded-md border border-slate-200 p-1"
             >
-                {props.label}
-            </label>
-            <div className="relative mt-1 rounded-md shadow-sm">
-                <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-2">
-                    <MagnifyingGlassIcon className="h-3 w-3 text-gray-400" />
-                </div>
-                <input
-                    {...inputProps}
-                    ref={inputRef}
-                    className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-1.5 pl-5 text-sm text-gray-700 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-                />
-                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
-                    {props.loadingState === "loading" ||
-                    props.loadingState === "filtering" ? (
-                        <svg
-                            className="h-5 w-5 animate-spin text-blue-400"
-                            viewBox="0 0 24 24"
-                        ></svg>
-                    ) : null}
-                </div>
-            </div>
-            {state.isOpen && (
-                <Popover
-                    popoverRef={popoverRef}
-                    triggerRef={inputRef}
-                    state={state}
-                    isNonModal
-                    placement="bottom start"
+                <Group
+                    className="flex flex-wrap items-center gap-1"
+                    onClick={onClickGroup}
                 >
-                    <ListBox
-                        {...listBoxProps}
-                        listBoxRef={listBoxRef}
-                        state={state}
-                        loadingState={props.loadingState}
-                        onLoadMore={props.onLoadMore}
-                    />
-                </Popover>
-            )}
-        </div>
+                    <FocusScope
+                        contain={containFocus}
+                        restoreFocus={restoreFocus}
+                        autoFocus={autoFocus}
+                    >
+                        {selectedItems?.map(tagItem => (
+                            <span
+                                tabIndex={0}
+                                className="item-center inline-flex gap-1 rounded-md border border-slate-200 bg-slate-50 px-2 py-1 selected:border-blue-400"
+                                key={getIdValue(tagItem)}
+                            >
+                                {getTagValue(tagItem)}
+                                <Button
+                                    onPress={removeItem(tagItem)}
+                                    type="button"
+                                    aria-label={`tag-${getTagValue(tagItem)}`}
+                                >
+                                    <XCircleIcon className="h-4 w-4 text-red-400" />
+                                </Button>
+                            </span>
+                        ))}
+
+                        <Input
+                            ref={inputFieldRef}
+                            value={filterText}
+                            className="w-full min-w-32 flex-1 border-b-blue-400 outline-none focus:border-b"
+                            onClick={openList}
+                            onChange={onFilterTextChange}
+                        />
+                    </FocusScope>
+                </Group>
+            </TextField>
+            <Popover
+                triggerRef={textFieldRef}
+                isOpen={isOpen}
+                onOpenChange={closeList}
+                style={{ width: `${textFieldWidth}px` }}
+                className="min-w-[450px]"
+            >
+                {isLoading && (
+                    <div className="absolute left-0 top-0 flex h-full w-full items-center justify-center ">
+                        <div className="absolute left-0 top-0 z-10 h-full w-full bg-white/60"></div>
+                        <ArrowPathIcon className="z-20 h-8 w-8 animate-spin text-blue-400" />
+                    </div>
+                )}
+                <ListBox
+                    selectionMode="single"
+                    selectedKeys={selectedItemKeys}
+                    onSelectionChange={onItemSelect}
+                    items={items}
+                    onScroll={onScroll}
+                    className={clsx("max-h-[290px] overflow-auto", listClasses)}
+                    {...rest}
+                >
+                    {item => (
+                        <ListBoxItem
+                            className={clsx(
+                                "relative cursor-default px-2 py-1 outline-none focus-visible:bg-slate-200 selected:bg-slate-100",
+                                listItemClasses
+                            )}
+                            id={getIdValue(item)}
+                        >
+                            {getDisplayValue(item)}
+                        </ListBoxItem>
+                    )}
+                </ListBox>
+            </Popover>
+        </>
     );
 };
 

@@ -1,40 +1,25 @@
-import { useAsyncList } from "react-stately";
+import { useCallback, useState } from "react";
 
-import { Item, MultiSelect } from "@/components/multi-select";
+import { MultiSelect } from "@/components/multi-select";
 
 import { CharacterProps } from ".";
 
 const RickAndMortySelect = () => {
-    const list = useAsyncList<CharacterProps>({
-        async load({ signal, cursor, filterText }) {
-            if (cursor) {
-                cursor = cursor.replace(/^http:\/\//i, "https://");
-            }
-
-            const res = await fetch(
-                cursor ||
-                    `https://rickandmortyapi.com/api/character/?name=${filterText}`,
-                { signal }
-            );
-            const json = await res.json();
-
-            return {
-                items: json.results,
-                cursor: json.info.next,
-            };
-        },
-    });
+    const [selectedItems, setSelectedItems] = useState<CharacterProps[]>([]);
+    const updateSelectedItems = useCallback(
+        (items: CharacterProps[]) => setSelectedItems(items),
+        []
+    );
     return (
-        <MultiSelect
-            label="Rick and Morty Character Search"
-            items={list.items}
-            inputValue={list.filterText}
-            onInputChange={list.setFilterText}
-            loadingState={list.loadingState}
-            onLoadMore={list.loadMore}
-        >
-            {item => <Item key={item.id}>{item.name}</Item>}
-        </MultiSelect>
+        <div className="w-full max-w-lg p-3">
+            <MultiSelect
+                label="Rick and Morty Character Search"
+                aria-label="Rick and Morty Character Search"
+                url="https://rickandmortyapi.com/api/character/"
+                selectedItems={selectedItems}
+                onChange={updateSelectedItems}
+            />
+        </div>
     );
 };
 
