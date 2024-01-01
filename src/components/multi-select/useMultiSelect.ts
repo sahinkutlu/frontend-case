@@ -23,7 +23,7 @@ const useMultiSelect = <T extends object>(props: MultiSelectProps<T>) => {
     // REFS
     const textFieldRef = useRef<HTMLInputElement>(null);
     const inputFieldRef = useRef<HTMLInputElement>(null);
-    const tagsRef = useRef();
+    const listBoxRef = useRef<HTMLDivElement>();
 
     // TEXT FIELD WIDTH
     const [textFieldWidth, setTextFieldWith] = useState<number>();
@@ -215,6 +215,20 @@ const useMultiSelect = <T extends object>(props: MultiSelectProps<T>) => {
         [debouncedSetFilterText, isOpen, setText]
     );
     /**
+     * Open and focus list box when pressed down key in input
+     */
+    const handleKeyDown = useCallback(
+        (event: React.KeyboardEvent) => {
+            if (event.key === "ArrowDown") {
+                if (!isOpen) {
+                    setIsOpen(true);
+                }
+                listBoxRef.current?.focus();
+            }
+        },
+        [isOpen]
+    );
+    /**
      * Set width for popover
      */
     useEffect(() => {
@@ -232,10 +246,11 @@ const useMultiSelect = <T extends object>(props: MultiSelectProps<T>) => {
         isOpen,
         items: items as T[],
         selectedItemKeys,
-        tagsRef,
+        listBoxRef,
         textFieldRef,
         textFieldWidth,
         closeList,
+        handleKeyDown,
         getDisplayValue,
         getIdValue,
         getTagValue,

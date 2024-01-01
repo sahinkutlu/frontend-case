@@ -32,10 +32,12 @@ const MultiSelect = <T extends object>(props: MultiSelectProps<T>) => {
         isLoading,
         isOpen,
         items,
+        listBoxRef,
         selectedItemKeys,
         textFieldRef,
         textFieldWidth,
         closeList,
+        handleKeyDown,
         getDisplayValue,
         getIdValue,
         getTagValue,
@@ -93,6 +95,7 @@ const MultiSelect = <T extends object>(props: MultiSelectProps<T>) => {
                             className="w-full min-w-32 flex-1 border-b-blue-400 outline-none focus:border-b"
                             onClick={openList}
                             onChange={onFilterTextChange}
+                            onKeyDown={handleKeyDown}
                         />
                     </FocusScope>
                 </Group>
@@ -114,6 +117,7 @@ const MultiSelect = <T extends object>(props: MultiSelectProps<T>) => {
                     </div>
                 )}
                 <ListBox
+                    ref={listBoxRef}
                     aria-label="multi select"
                     selectionMode="single"
                     selectedKeys={selectedItemKeys}
