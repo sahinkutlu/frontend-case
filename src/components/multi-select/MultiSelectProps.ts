@@ -26,16 +26,16 @@ export interface MultiSelectProps<T>
     url?: string;
     apiResultPath?: string;
     apiResultCursor?: string;
-    idValue?: string | ((item: Record<string, unknown>) => string);
-    tagValue?: string | ((item: Record<string, unknown>) => string);
-    displayValue?:
-        | string
-        | ((item: Record<string, unknown>) => string | React.ReactNode);
+    idValue?: string | ((item: T) => string);
+    tagValue?: string | ((item: T) => string);
+    displayValue?: string | ((item: T) => string | React.ReactNode);
     listClasses?: string;
     listItemClasses?: string;
     containFocus?: boolean;
     restoreFocus?: boolean;
     autoFocus?: boolean;
     selectedItems: T[];
+    filterText?: string;
+    setFilterText?: (filterText: string) => void;
     onChange: (selectedItems: T[]) => void;
 }

@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
+import debounce from "lodash/debounce";
 import get from "lodash/get";
 import { Key, type Selection } from "react-stately";
 
@@ -15,6 +16,7 @@ const useMultiSelect = <T extends object>(props: MultiSelectProps<T>) => {
         url,
         selectedItems,
         onChange,
+        setFilterText: setText,
     } = props;
 
     // REFS
@@ -34,7 +36,6 @@ const useMultiSelect = <T extends object>(props: MultiSelectProps<T>) => {
     //  ASYNC LIST
     const {
         error,
-        filterText,
         isLoading,
         items,
         loadMore,
@@ -131,6 +132,8 @@ const useMultiSelect = <T extends object>(props: MultiSelectProps<T>) => {
             setSelectedKeys(selection);
             setIsOpen(false);
             setFilterText("");
+
+            setText?.("");
             const selectionSize = get(selection, "size", 0);
             if (selectionSize > 0) {
                 const fetchItems = [...items];
@@ -160,8 +163,16 @@ const useMultiSelect = <T extends object>(props: MultiSelectProps<T>) => {
             selectedItems,
             setFilterText,
             setSelectedKeys,
+            setText,
         ]
     );
+    /**
+     * Store debounce with useRef instead of useCallback to prevent creating new debounce function on every render
+     */
+    const debouncedSetFilterText = useRef(
+        debounce(value => setFilterText(value), 300)
+    ).current;
+
     /**
      * Remove item by clicking tag
      */
@@ -194,12 +205,14 @@ const useMultiSelect = <T extends object>(props: MultiSelectProps<T>) => {
      */
     const onFilterTextChange = useCallback(
         (event: React.ChangeEvent<HTMLInputElement>) => {
-            setFilterText(event.target.value);
+            const value = get(event, "target.value", "");
+            debouncedSetFilterText(value);
+            setText?.(value);
             if (!isOpen) {
                 setIsOpen(true);
             }
         },
-        [isOpen, setFilterText]
+        [debouncedSetFilterText, isOpen, setText]
     );
     /**
      * Set width for popover
@@ -214,7 +227,6 @@ const useMultiSelect = <T extends object>(props: MultiSelectProps<T>) => {
 
     return {
         error,
-        filterText,
         inputFieldRef,
         isLoading,
         isOpen,

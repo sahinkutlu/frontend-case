@@ -3,11 +3,25 @@ import { useCallback, useState } from "react";
 import { MultiSelect } from "@/components/multi-select";
 
 import { CharacterProps } from ".";
+import RickAndMortyListItem from "./RickAndMortyListItem";
 
 const RickAndMortySelect = () => {
+    // FILTER TEXT
+    const [filterText, setFilterText] = useState<string>("");
+    const updateFilterText = useCallback(
+        (text: string) => setFilterText(text),
+        []
+    );
+    // SELECTED ITEMS
     const [selectedItems, setSelectedItems] = useState<CharacterProps[]>([]);
     const updateSelectedItems = useCallback(
         (items: CharacterProps[]) => setSelectedItems(items),
+        []
+    );
+    const renderCustomDisplay = useCallback(
+        (character: CharacterProps) => (
+            <RickAndMortyListItem character={character} />
+        ),
         []
     );
     return (
@@ -18,6 +32,11 @@ const RickAndMortySelect = () => {
                 url="https://rickandmortyapi.com/api/character/"
                 selectedItems={selectedItems}
                 onChange={updateSelectedItems}
+                displayValue={renderCustomDisplay}
+                listClasses="shadow-lg rounded-lg border border-slate-100"
+                listItemClasses="p-0 group"
+                filterText={filterText}
+                setFilterText={updateFilterText}
             />
         </div>
     );

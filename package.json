@@ -18,7 +18,8 @@
     "react-aria": "^3.31.0",
     "react-aria-components": "^1.0.0",
     "react-dom": "^18.2.0",
-    "react-stately": "^3.29.0"
+    "react-stately": "^3.29.0",
+    "tailwind-merge": "^2.2.0"
   },
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",

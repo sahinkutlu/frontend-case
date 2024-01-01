@@ -11,6 +11,7 @@ import {
     Popover,
     TextField,
 } from "react-aria-components";
+import { twMerge } from "tailwind-merge";
 
 import { MultiSelectProps } from ".";
 import useMultiSelect from "./useMultiSelect";
@@ -19,6 +20,7 @@ const MultiSelect = <T extends object>(props: MultiSelectProps<T>) => {
     const {
         autoFocus,
         containFocus = true,
+        filterText,
         restoreFocus,
         listClasses,
         listItemClasses,
@@ -26,7 +28,6 @@ const MultiSelect = <T extends object>(props: MultiSelectProps<T>) => {
         ...rest
     } = props;
     const {
-        filterText,
         inputFieldRef,
         isLoading,
         isOpen,
@@ -45,6 +46,13 @@ const MultiSelect = <T extends object>(props: MultiSelectProps<T>) => {
         openList,
         removeItem,
     } = useMultiSelect(props);
+    const listCN = twMerge(clsx("max-h-[290px] overflow-auto", listClasses));
+    const listItemCN = twMerge(
+        clsx(
+            "selected:bg-slate-100 relative cursor-default px-2 py-1 outline-none focus-visible:bg-slate-200",
+            listItemClasses
+        )
+    );
     return (
         <>
             <TextField
@@ -79,7 +87,7 @@ const MultiSelect = <T extends object>(props: MultiSelectProps<T>) => {
 
                         <Input
                             ref={inputFieldRef}
-                            value={filterText}
+                            defaultValue={filterText}
                             className="w-full min-w-32 flex-1 border-b-blue-400 outline-none focus:border-b"
                             onClick={openList}
                             onChange={onFilterTextChange}
@@ -106,15 +114,12 @@ const MultiSelect = <T extends object>(props: MultiSelectProps<T>) => {
                     onSelectionChange={onItemSelect}
                     items={items}
                     onScroll={onScroll}
-                    className={clsx("max-h-[290px] overflow-auto", listClasses)}
+                    className={listCN}
                     {...rest}
                 >
                     {item => (
                         <ListBoxItem
-                            className={clsx(
-                                "relative cursor-default px-2 py-1 outline-none focus-visible:bg-slate-200 selected:bg-slate-100",
-                                listItemClasses
-                            )}
+                            className={listItemCN}
                             id={getIdValue(item)}
                         >
                             {getDisplayValue(item)}
