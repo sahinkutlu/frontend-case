@@ -15,6 +15,9 @@ const HighlightFilterText: React.FC<HighlightFilterTextProps> = ({
         filterText?.trim()?.length > 0
             ? text.replace(
                   new RegExp(filterText, "gi"),
+                  /**
+                   * using html like <b>${match}</b> may cause security risk if it combined with setDangerousInnerHtml
+                   */
                   match => `\`${match}\``
               )
             : text;

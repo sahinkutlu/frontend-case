@@ -58,7 +58,7 @@ const MultiSelect = <T extends object>(props: MultiSelectProps<T>) => {
         <>
             <TextField
                 ref={textFieldRef}
-                className="relative w-full rounded-md border border-slate-200 p-1"
+                className="relative w-full rounded-md border-2 border-slate-200 p-1"
             >
                 <Group
                     className="flex flex-wrap items-center gap-1"

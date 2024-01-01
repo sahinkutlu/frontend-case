@@ -35,15 +35,8 @@ const useMultiSelect = <T extends object>(props: MultiSelectProps<T>) => {
     }, []);
     const closeList = useCallback(() => setIsOpen(false), []);
     //  ASYNC LIST
-    const {
-        error,
-        isLoading,
-        items,
-        loadMore,
-        selectedKeys,
-        setFilterText,
-        setSelectedKeys,
-    } = useMultiSelectList({ filterParams, url });
+    const { error, isLoading, items, loadMore, setFilterText } =
+        useMultiSelectList({ filterParams, url });
 
     /**
      * Fetch more item by scrolling
@@ -147,16 +140,11 @@ const useMultiSelect = <T extends object>(props: MultiSelectProps<T>) => {
      */
     const onItemSelect = useCallback(
         (selection: Selection) => {
-            console.log({ selection });
-            setSelectedKeys(selection);
-            setIsOpen(false);
-            setFilterText("");
-
-            setText?.("");
             const selectionSize = get(selection, "size", 0);
             if (selectionSize > 0) {
                 const fetchItems = [...items];
                 const targetItemKey = [...selection][0];
+
                 const targetItem = fetchItems.find(
                     item => getIdValue(item as T) === targetItemKey
                 ) as T;
@@ -167,23 +155,24 @@ const useMultiSelect = <T extends object>(props: MultiSelectProps<T>) => {
                     );
                     if (itemIndex < 0) {
                         previousSelectedItems.push(targetItem);
-                    } else {
-                        previousSelectedItems.splice(itemIndex, 1);
+                        setIsOpen(false);
+                        setFilterText("");
+                        setText?.("");
+                        onChange(previousSelectedItems);
                     }
-
-                    onChange(previousSelectedItems);
+                    /**
+                     * If you want to delete on list item click
+                     * you need to create custom list item that
+                     * trigger onItemSelect directly.
+                     * ListBox native function is returns first item of selection in single mode
+                     */
+                    // else {
+                    //     previousSelectedItems.splice(itemIndex, 1);
+                    // }
                 }
             }
         },
-        [
-            getIdValue,
-            items,
-            onChange,
-            selectedItems,
-            setFilterText,
-            setSelectedKeys,
-            setText,
-        ]
+        [getIdValue, items, onChange, selectedItems, setFilterText, setText]
     );
     /**
      * Store debounce with useRef instead of useCallback to prevent creating new debounce function on every render
@@ -197,21 +186,13 @@ const useMultiSelect = <T extends object>(props: MultiSelectProps<T>) => {
      */
     const removeItem = useCallback(
         (deleteItem: T) => () => {
-            const selectedSize = get(selectedKeys, "size", 0);
-            if (selectedSize > 0) {
-                setIsOpen(false);
-                const itemId = getIdValue(deleteItem);
-                const selectedSet = [...selectedKeys].filter(
-                    item => String(item) !== String(itemId)
-                );
-                setSelectedKeys(new Set([...selectedSet]));
-                const filteredItems = selectedItems?.filter(
-                    itm => String(getIdValue(itm)) !== String(itemId)
-                );
-                onChange(filteredItems);
-            }
+            const filteredItems = selectedItems?.filter(
+                itm =>
+                    String(getIdValue(itm)) !== String(getIdValue(deleteItem))
+            );
+            onChange(filteredItems);
         },
-        [getIdValue, onChange, selectedItems, selectedKeys, setSelectedKeys]
+        [getIdValue, onChange, selectedItems]
     );
     /**
      * Focus input when click space in group
@@ -250,7 +231,6 @@ const useMultiSelect = <T extends object>(props: MultiSelectProps<T>) => {
         isLoading,
         isOpen,
         items: items as T[],
-        selected: selectedKeys,
         selectedItemKeys,
         tagsRef,
         textFieldRef,
