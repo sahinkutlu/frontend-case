@@ -13,6 +13,7 @@ const useMultiSelect = <T extends object>(props: MultiSelectProps<T>) => {
         filterParams,
         idValue,
         tagValue,
+        textValue,
         url,
         selectedItems,
         onChange,
@@ -93,6 +94,23 @@ const useMultiSelect = <T extends object>(props: MultiSelectProps<T>) => {
         [tagValue]
     );
     /**
+     * Making text value is dynamic
+     */
+    const getTextValue = useCallback(
+        (item: T) => {
+            const typeOfTextValue = typeof textValue;
+            switch (typeOfTextValue) {
+                case "string":
+                    return get(item, textValue as string);
+                case "function":
+                    return (textValue as (item: T) => string)(item);
+                default:
+                    return get(item, "name");
+            }
+        },
+        [textValue]
+    );
+    /**
      * Making display value is dynamic
      * By this way we can pass component
      */
@@ -112,6 +130,7 @@ const useMultiSelect = <T extends object>(props: MultiSelectProps<T>) => {
         },
         [displayValue]
     );
+
     /**
      * Mapped item list keys
      */
@@ -240,6 +259,7 @@ const useMultiSelect = <T extends object>(props: MultiSelectProps<T>) => {
         getDisplayValue,
         getIdValue,
         getTagValue,
+        getTextValue,
         onClickGroup,
         onFilterTextChange,
         onItemSelect,

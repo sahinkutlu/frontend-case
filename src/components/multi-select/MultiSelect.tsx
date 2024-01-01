@@ -39,6 +39,7 @@ const MultiSelect = <T extends object>(props: MultiSelectProps<T>) => {
         getDisplayValue,
         getIdValue,
         getTagValue,
+        getTextValue,
         onClickGroup,
         onFilterTextChange,
         onItemSelect,
@@ -86,8 +87,9 @@ const MultiSelect = <T extends object>(props: MultiSelectProps<T>) => {
                         ))}
 
                         <Input
+                            aria-label="filter text"
                             ref={inputFieldRef}
-                            defaultValue={filterText}
+                            value={filterText}
                             className="w-full min-w-32 flex-1 border-b-blue-400 outline-none focus:border-b"
                             onClick={openList}
                             onChange={onFilterTextChange}
@@ -103,12 +105,16 @@ const MultiSelect = <T extends object>(props: MultiSelectProps<T>) => {
                 className="min-w-[450px]"
             >
                 {isLoading && (
-                    <div className="absolute left-0 top-0 flex h-full w-full items-center justify-center ">
+                    <div
+                        aria-label="loading spinner"
+                        className="absolute left-0 top-0 flex h-full w-full items-center justify-center "
+                    >
                         <div className="absolute left-0 top-0 z-10 h-full w-full bg-white/60"></div>
                         <ArrowPathIcon className="z-20 h-8 w-8 animate-spin text-blue-400" />
                     </div>
                 )}
                 <ListBox
+                    aria-label="multi select"
                     selectionMode="single"
                     selectedKeys={selectedItemKeys}
                     onSelectionChange={onItemSelect}
@@ -121,6 +127,8 @@ const MultiSelect = <T extends object>(props: MultiSelectProps<T>) => {
                         <ListBoxItem
                             className={listItemCN}
                             id={getIdValue(item)}
+                            textValue={getTextValue(item)}
+                            aria-label={getTextValue(item)}
                         >
                             {getDisplayValue(item)}
                         </ListBoxItem>

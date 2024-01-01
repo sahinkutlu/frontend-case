@@ -28,6 +28,7 @@ export interface MultiSelectProps<T>
     apiResultCursor?: string;
     idValue?: string | ((item: T) => string);
     tagValue?: string | ((item: T) => string);
+    textValue?: string | ((item: T) => string);
     displayValue?: string | ((item: T) => string | React.ReactNode);
     listClasses?: string;
     listItemClasses?: string;

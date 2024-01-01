@@ -20,9 +20,12 @@ const RickAndMortySelect = () => {
     );
     const renderCustomDisplay = useCallback(
         (character: CharacterProps) => (
-            <RickAndMortyListItem character={character} />
+            <RickAndMortyListItem
+                character={character}
+                filterText={filterText}
+            />
         ),
-        []
+        [filterText]
     );
     return (
         <div className="w-full max-w-lg p-3">
