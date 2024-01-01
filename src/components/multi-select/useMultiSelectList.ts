@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 
 import get from "lodash/get";
 import has from "lodash/has";
@@ -22,7 +22,13 @@ const useMultiSelectList = <T>(props: UseMultiSelectListProps) => {
         apiResultPath = "results",
         apiResultCursor = "info.next",
     } = props || {};
-
+    /**
+     * Error state
+     */
+    const [errorMessage, setErrorMessage] = useState<string>("");
+    /**
+     * Fetch items with params
+     */
     const loadItems = useCallback(
         async ({ signal, cursor, filterText }: LoadItemsProps) => {
             try {
@@ -53,14 +59,17 @@ const useMultiSelectList = <T>(props: UseMultiSelectListProps) => {
                  * make more dynamic for another endpoints
                  */
                 if (has(json, "results")) {
+                    setErrorMessage("");
                     return {
                         items: get(json, apiResultPath) as T[],
                         cursor: get(json, apiResultCursor),
                     };
                 } else {
-                    throw new Error(json?.error || "Something gone wrong");
+                    throw new Error(get(json, "error", "Something gone wrong"));
                 }
             } catch (error) {
+                const eMessage = get(error, "message", "Something gone wrong");
+                setErrorMessage(eMessage);
                 throw new Error(error as string);
             }
         },
@@ -68,7 +77,6 @@ const useMultiSelectList = <T>(props: UseMultiSelectListProps) => {
     );
 
     const {
-        error,
         filterText,
         isLoading,
         items,
@@ -80,7 +88,7 @@ const useMultiSelectList = <T>(props: UseMultiSelectListProps) => {
         load: loadItems as AsyncListOptions<T, string>["load"],
     });
     return {
-        error,
+        errorMessage,
         filterText,
         isLoading,
         items,

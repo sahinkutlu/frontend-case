@@ -36,7 +36,7 @@ const useMultiSelect = <T extends object>(props: MultiSelectProps<T>) => {
     }, []);
     const closeList = useCallback(() => setIsOpen(false), []);
     //  ASYNC LIST
-    const { error, isLoading, items, loadMore, setFilterText } =
+    const { errorMessage, isLoading, items, loadMore, setFilterText } =
         useMultiSelectList({ filterParams, url });
 
     /**
@@ -265,7 +265,7 @@ const useMultiSelect = <T extends object>(props: MultiSelectProps<T>) => {
     }, [textFieldRef]);
 
     return {
-        error,
+        errorMessage,
         inputFieldRef,
         isLoading,
         isOpen,

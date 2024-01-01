@@ -28,6 +28,7 @@ const MultiSelect = <T extends object>(props: MultiSelectProps<T>) => {
         ...rest
     } = props;
     const {
+        errorMessage,
         inputFieldRef,
         isLoading,
         isOpen,
@@ -122,28 +123,34 @@ const MultiSelect = <T extends object>(props: MultiSelectProps<T>) => {
                         <ArrowPathIcon className="z-20 h-8 w-8 animate-spin text-blue-400" />
                     </div>
                 )}
-                <ListBox
-                    ref={listBoxRef}
-                    aria-label="multi select"
-                    selectionMode="single"
-                    selectedKeys={selectedItemKeys}
-                    onSelectionChange={onItemSelect}
-                    items={items}
-                    onScroll={onScroll}
-                    className={listCN}
-                    {...rest}
-                >
-                    {item => (
-                        <ListBoxItem
-                            className={listItemCN}
-                            id={getIdValue(item)}
-                            textValue={getTextValue(item)}
-                            aria-label={getTextValue(item)}
-                        >
-                            {getDisplayValue(item)}
-                        </ListBoxItem>
-                    )}
-                </ListBox>
+                {errorMessage ? (
+                    <div className="pb-3 text-sm text-red-400">
+                        {errorMessage}
+                    </div>
+                ) : (
+                    <ListBox
+                        ref={listBoxRef}
+                        aria-label="multi select"
+                        selectionMode="single"
+                        selectedKeys={selectedItemKeys}
+                        onSelectionChange={onItemSelect}
+                        items={items}
+                        onScroll={onScroll}
+                        className={listCN}
+                        {...rest}
+                    >
+                        {item => (
+                            <ListBoxItem
+                                className={listItemCN}
+                                id={getIdValue(item)}
+                                textValue={getTextValue(item)}
+                                aria-label={getTextValue(item)}
+                            >
+                                {getDisplayValue(item)}
+                            </ListBoxItem>
+                        )}
+                    </ListBox>
+                )}
             </Popover>
         </>
     );
