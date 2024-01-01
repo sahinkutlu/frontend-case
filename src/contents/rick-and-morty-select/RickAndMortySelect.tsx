@@ -59,7 +59,9 @@ const RickAndMortySelect = () => {
                 item={selectedTag}
                 onClose={onDialogClose}
             />
-            <div className="w-full max-w-lg p-3">
+            <div className="flex w-full max-w-lg flex-col items-center p-3">
+                <img className="max-w-full" src="/rickandmorty.png" />
+
                 <MultiSelect
                     label="Rick and Morty Character Search"
                     aria-label="Rick and Morty Character Search"
