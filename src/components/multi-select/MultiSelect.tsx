@@ -62,7 +62,7 @@ const MultiSelect = <T extends object>(props: MultiSelectProps<T>) => {
         <>
             <TextField
                 ref={textFieldRef}
-                className="relative w-full rounded-md border-2 border-slate-200 p-1"
+                className="relative w-full rounded-md border border-slate-200 bg-white/90 p-1 shadow"
                 aria-label="tag wrapper"
             >
                 <Group
@@ -78,7 +78,7 @@ const MultiSelect = <T extends object>(props: MultiSelectProps<T>) => {
                             <span
                                 tabIndex={0}
                                 role="button"
-                                className="item-center inline-flex gap-1 rounded-md border border-slate-200 bg-slate-50 px-2 py-1 selected:border-blue-400"
+                                className="item-center inline-flex gap-1 rounded-md border border-slate-200 bg-slate-50 px-2 py-1 text-sm text-slate-500 selected:border-blue-400"
                                 key={getIdValue(tagItem)}
                                 onKeyDown={handleTagKeyDown(tagItem)}
                                 onClick={handleTagClick(tagItem)}
