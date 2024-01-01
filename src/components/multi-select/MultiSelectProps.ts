@@ -39,4 +39,5 @@ export interface MultiSelectProps<T>
     filterText?: string;
     setFilterText?: (filterText: string) => void;
     onChange: (selectedItems: T[]) => void;
+    onTagSelect?: (item: T) => void;
 }

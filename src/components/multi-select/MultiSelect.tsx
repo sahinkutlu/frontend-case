@@ -37,7 +37,9 @@ const MultiSelect = <T extends object>(props: MultiSelectProps<T>) => {
         textFieldRef,
         textFieldWidth,
         closeList,
-        handleKeyDown,
+        handleInputKeyDown,
+        handleTagKeyDown,
+        handleTagClick,
         getDisplayValue,
         getIdValue,
         getTagValue,
@@ -61,6 +63,7 @@ const MultiSelect = <T extends object>(props: MultiSelectProps<T>) => {
             <TextField
                 ref={textFieldRef}
                 className="relative w-full rounded-md border-2 border-slate-200 p-1"
+                aria-label="tag wrapper"
             >
                 <Group
                     className="flex flex-wrap items-center gap-1"
@@ -74,8 +77,11 @@ const MultiSelect = <T extends object>(props: MultiSelectProps<T>) => {
                         {selectedItems?.map(tagItem => (
                             <span
                                 tabIndex={0}
+                                role="button"
                                 className="item-center inline-flex gap-1 rounded-md border border-slate-200 bg-slate-50 px-2 py-1 selected:border-blue-400"
                                 key={getIdValue(tagItem)}
+                                onKeyDown={handleTagKeyDown(tagItem)}
+                                onClick={handleTagClick(tagItem)}
                             >
                                 {getTagValue(tagItem)}
                                 <Button
@@ -95,7 +101,7 @@ const MultiSelect = <T extends object>(props: MultiSelectProps<T>) => {
                             className="w-full min-w-32 flex-1 border-b-blue-400 outline-none focus:border-b"
                             onClick={openList}
                             onChange={onFilterTextChange}
-                            onKeyDown={handleKeyDown}
+                            onKeyDown={handleInputKeyDown}
                         />
                     </FocusScope>
                 </Group>

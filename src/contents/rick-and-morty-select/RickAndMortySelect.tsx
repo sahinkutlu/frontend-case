@@ -4,20 +4,45 @@ import { MultiSelect } from "@/components/multi-select";
 
 import { CharacterProps } from ".";
 import RickAndMortyListItem from "./RickAndMortyListItem";
+import RickAndMortySelectedDialog from "./RickAndMortySelectedDialog";
 
 const RickAndMortySelect = () => {
-    // FILTER TEXT
+    /**
+     * FILTER TEXT
+     */
     const [filterText, setFilterText] = useState<string>("");
     const updateFilterText = useCallback(
         (text: string) => setFilterText(text),
         []
     );
-    // SELECTED ITEMS
+    /**
+     * SELECT ITEMS
+     */
     const [selectedItems, setSelectedItems] = useState<CharacterProps[]>([]);
     const updateSelectedItems = useCallback(
         (items: CharacterProps[]) => setSelectedItems(items),
         []
     );
+    /**
+     * CLICK TAG AND SHOW DETAIL
+     */
+    const [isTagDetailOpen, setIsTagDetailOpen] = useState<boolean>(false);
+    const [selectedTag, setSelectedTag] = useState<CharacterProps>();
+
+    const onTagSelect = useCallback((character: CharacterProps) => {
+        setSelectedTag(character);
+        setIsTagDetailOpen(true);
+    }, []);
+
+    const onDialogClose = useCallback(() => {
+        setIsTagDetailOpen(false);
+        setTimeout(() => {
+            setSelectedTag(undefined);
+        }, 500);
+    }, []);
+    /**
+     * RENDER CUSTOM LIST ITEM
+     */
     const renderCustomDisplay = useCallback(
         (character: CharacterProps) => (
             <RickAndMortyListItem
@@ -28,20 +53,28 @@ const RickAndMortySelect = () => {
         [filterText]
     );
     return (
-        <div className="w-full max-w-lg p-3">
-            <MultiSelect
-                label="Rick and Morty Character Search"
-                aria-label="Rick and Morty Character Search"
-                url="https://rickandmortyapi.com/api/character/"
-                selectedItems={selectedItems}
-                onChange={updateSelectedItems}
-                displayValue={renderCustomDisplay}
-                listClasses="shadow-lg rounded-lg border border-slate-100"
-                listItemClasses="p-0 group"
-                filterText={filterText}
-                setFilterText={updateFilterText}
+        <>
+            <RickAndMortySelectedDialog
+                isOpen={isTagDetailOpen}
+                item={selectedTag}
+                onClose={onDialogClose}
             />
-        </div>
+            <div className="w-full max-w-lg p-3">
+                <MultiSelect
+                    label="Rick and Morty Character Search"
+                    aria-label="Rick and Morty Character Search"
+                    url="https://rickandmortyapi.com/api/character/"
+                    selectedItems={selectedItems}
+                    onChange={updateSelectedItems}
+                    displayValue={renderCustomDisplay}
+                    listClasses="shadow-lg rounded-lg border border-slate-100"
+                    listItemClasses="p-0 group"
+                    filterText={filterText}
+                    setFilterText={updateFilterText}
+                    onTagSelect={onTagSelect}
+                />
+            </div>
+        </>
     );
 };
 

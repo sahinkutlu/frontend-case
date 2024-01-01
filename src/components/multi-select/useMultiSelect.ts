@@ -18,12 +18,13 @@ const useMultiSelect = <T extends object>(props: MultiSelectProps<T>) => {
         selectedItems,
         onChange,
         setFilterText: setText,
+        onTagSelect,
     } = props;
 
     // REFS
     const textFieldRef = useRef<HTMLInputElement>(null);
     const inputFieldRef = useRef<HTMLInputElement>(null);
-    const listBoxRef = useRef<HTMLDivElement>();
+    const listBoxRef = useRef<HTMLDivElement>(null);
 
     // TEXT FIELD WIDTH
     const [textFieldWidth, setTextFieldWith] = useState<number>();
@@ -217,7 +218,7 @@ const useMultiSelect = <T extends object>(props: MultiSelectProps<T>) => {
     /**
      * Open and focus list box when pressed down key in input
      */
-    const handleKeyDown = useCallback(
+    const handleInputKeyDown = useCallback(
         (event: React.KeyboardEvent) => {
             if (event.key === "ArrowDown") {
                 if (!isOpen) {
@@ -227,6 +228,30 @@ const useMultiSelect = <T extends object>(props: MultiSelectProps<T>) => {
             }
         },
         [isOpen]
+    );
+    /**
+     * Select tag by pressing space or enter keys
+     */
+    const handleTagKeyDown = useCallback(
+        (item: T) => (event: React.KeyboardEvent) => {
+            if (event.key === "Enter" || event.key === " ") {
+                if (item && onTagSelect) {
+                    onTagSelect(item);
+                }
+            }
+        },
+        [onTagSelect]
+    );
+    /**
+     * Select tag by click
+     */
+    const handleTagClick = useCallback(
+        (item: T) => () => {
+            if (item && onTagSelect) {
+                onTagSelect(item);
+            }
+        },
+        [onTagSelect]
     );
     /**
      * Set width for popover
@@ -250,7 +275,9 @@ const useMultiSelect = <T extends object>(props: MultiSelectProps<T>) => {
         textFieldRef,
         textFieldWidth,
         closeList,
-        handleKeyDown,
+        handleInputKeyDown,
+        handleTagKeyDown,
+        handleTagClick,
         getDisplayValue,
         getIdValue,
         getTagValue,
