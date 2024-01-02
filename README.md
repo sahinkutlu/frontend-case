@@ -22,7 +22,7 @@
     <a href="https://github.com/pikselinweb/rick-and-morty-multi-select"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/pikselinweb/rick-and-morty-multi-select">View Demo</a>
+    <a href="https://rick-and-morty-multi-select-nine.vercel.app/">View Demo</a>
     ·
     <a href="https://github.com/pikselinweb/rick-and-morty-multi-select/issues">Report Bug</a>
     ·
@@ -55,25 +55,23 @@
   </ol>
 </details>
 
-# Rick and Morty Multi Select <a name="#project-root"></a>
-
-
 <!-- ABOUT THE PROJECT -->
+
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+[![Rick and Morty Multiselect][product-screenshot]](https://example.com)
 
-__Application Overview:__ I developed an application using Adobe’s React Aria components. The primary reasons for this choice were their asynchronous list structure and customizable components.
+**Application Overview:** I developed an application using Adobe’s React Aria components. The primary reasons for this choice were their asynchronous list structure and customizable components.
 
-__Component Development:__ Initially, I started with the combobox, but I realized that it does not support multiple selections beyond general usage. As a result, I created my own input component.
+**Component Development:** Initially, I started with the combobox, but I realized that it does not support multiple selections beyond general usage. As a result, I created my own input component.
 
-__Multiselect Component:__ This led to the creation of a multiselect component that allows searching and multiple selections.
+**Multiselect Component:** This led to the creation of a multiselect component that allows searching and multiple selections.
 
-__Navigation:__ You can navigate between selected items and input with the tab key. When you are in the input field and press the down arrow, the list opens.
+**Navigation:** You can navigate between selected items and input with the tab key. When you are in the input field and press the down arrow, the list opens.
 
-__Selection:__ After the list opens, you can navigate up and down between the list items and make a selection with the enter key.
+**Selection:** After the list opens, you can navigate up and down between the list items and make a selection with the enter key.
 
-__Detail Modal:__ Similarly, when you click on a selected item in the input or press the space or enter key while it is selected, the detail modal opens.
+**Detail Modal:** Similarly, when you click on a selected item in the input or press the space or enter key while it is selected, the detail modal opens.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -91,6 +89,7 @@ __Detail Modal:__ Similarly, when you click on a selected item in the input or p
 -   @heroicons/react: A set of beautiful hand-crafted SVG icons as React components, designed by the creators of Tailwind CSS5.
 
 <!-- GETTING STARTED -->
+
 ## Getting Started
 
 This is an example of how you may give instructions on setting up your project locally.
@@ -101,58 +100,62 @@ To get a local copy up and running follow these simple example steps.
 To run this project locally you need download and install <a href="https://nodejs.org/en/download">Node.js</a>
 
 ### Installation
+
 1. Clone the repo
-   ```sh
-   git clone https://github.com/pikselinweb/rick-and-morty-multi-select.git
-   ```
+    ```sh
+    git clone https://github.com/pikselinweb/rick-and-morty-multi-select.git
+    ```
 2. Go project directory and install dependencies
-  ```sh
-   cd rick-and-morty-multi-select && npm install
-   ```
+
+```sh
+ cd rick-and-morty-multi-select && npm install
+```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- USAGE EXAMPLES -->
+
 ## Usage
 
 To run the project in development mode, execute the following command:
 
- ```sh
- npm run dev
- ```
+```sh
+npm run dev
+```
 
 For production build:
- ```sh
- npm run prod
- ```
+
+```sh
+npm run prod
+```
 
 After successful build you could preview application:
 
- ```sh
- npm run preview
- ```
+```sh
+npm run preview
+```
 
  <!-- ROADMAP -->
+
 ## Roadmap
 
-- [x] Multiselect 
-- [x] Autocomplete search
-- [x] Query highlight
-- [x] Character display in modal
-- [x] Navigation and action with keys
-- [x] Infinite scrolling
-- [ ] Code Quality
-- [ ] Testing
-- [ ] Storybook
-
-
+-   [x] Multiselect
+-   [x] Autocomplete search
+-   [x] Query highlight
+-   [x] Character display in modal
+-   [x] Navigation and action with keys
+-   [x] Infinite scrolling
+-   [ ] Image optimization
+-   [ ] Code Quality Analyze
+-   [ ] Testing
+-   [ ] Storybook
 
 See the [open issues](https://github.com/pikselinweb/rick-and-morty-multi-select/issues) for a full list of proposed features (and known issues).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
 <!-- CONTRIBUTING -->
+
 ## Contributing
 
 Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
@@ -169,6 +172,7 @@ Don't forget to give the project a star! Thanks again!
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- LICENSE -->
+
 ## License
 
 Distributed under the MIT License. See `LICENSE.txt` for more information.
@@ -176,6 +180,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- CONTACT -->
+
 ## Contact
 
 Gökhan Duman - [@dumangkhan](https://twitter.com/dumangkhan) - c2@gkhan.me
@@ -196,6 +201,6 @@ Project Link: [https://github.com/pikselinweb/rick-and-morty-multi-select](https
 [license-url]: https://github.com/pikselinweb/rick-and-morty-multi-select/blob/main/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/gkhanduman/
-[product-screenshot]: images/screenshot.png
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
 [React-url]: https://reactjs.org/
+[product-screenshot]: public/rick-and-morty-ss.png
