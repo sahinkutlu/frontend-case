@@ -244,9 +244,17 @@ const useMultiSelect = <T extends object>(props: MultiSelectProps<T>) => {
                 if (item && onTagSelect) {
                     onTagSelect(item);
                 }
+            } else if (event.key === "Delete" || event.key === "Backspace") {
+                if (item) {
+                    const filteredItems = selectedItems?.filter(
+                        itm =>
+                            String(getIdValue(itm)) !== String(getIdValue(item))
+                    );
+                    onChange(filteredItems);
+                }
             }
         },
-        [onTagSelect]
+        [getIdValue, onChange, onTagSelect, selectedItems]
     );
     /**
      * Select tag by click
