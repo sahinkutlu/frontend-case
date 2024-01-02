@@ -65,10 +65,16 @@ const useMultiSelectList = <T>(props: UseMultiSelectListProps) => {
                         cursor: get(json, apiResultCursor),
                     };
                 } else {
-                    throw new Error(get(json, "error", "Something gone wrong"));
+                    throw new Error(
+                        get(json, "error", "Something went wrong B1")
+                    );
                 }
             } catch (error) {
-                const eMessage = get(error, "message", "Something gone wrong");
+                const eMessage = get(
+                    error,
+                    "message",
+                    "Something went wrong B2"
+                );
                 setErrorMessage(eMessage);
                 throw new Error(error as string);
             }

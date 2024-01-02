@@ -14,6 +14,9 @@ const RickAndMortyListItem: React.FC<RickAndMortyListItemProps> = ({
     character,
     filterText,
 }) => {
+    /**
+     * Computed data
+     */
     const imageSrc = get(
         character,
         "image",

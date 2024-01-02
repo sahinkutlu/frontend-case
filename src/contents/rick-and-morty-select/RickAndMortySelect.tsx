@@ -1,6 +1,7 @@
 import { useCallback, useState } from "react";
 
 import { MultiSelect } from "@/components/multi-select";
+import { rickAndMortyDetailModalEaseDuration } from "@/config/duration";
 
 import { CharacterProps } from ".";
 import RickAndMortyListItem from "./RickAndMortyListItem";
@@ -8,7 +9,7 @@ import RickAndMortySelectedDialog from "./RickAndMortySelectedDialog";
 
 const RickAndMortySelect = () => {
     /**
-     * FILTER TEXT
+     * Filter state
      */
     const [filterText, setFilterText] = useState<string>("");
     const updateFilterText = useCallback(
@@ -16,7 +17,7 @@ const RickAndMortySelect = () => {
         []
     );
     /**
-     * SELECT ITEMS
+     * Selected characters
      */
     const [selectedItems, setSelectedItems] = useState<CharacterProps[]>([]);
     const updateSelectedItems = useCallback(
@@ -24,7 +25,7 @@ const RickAndMortySelect = () => {
         []
     );
     /**
-     * CLICK TAG AND SHOW DETAIL
+     * Showing character detail
      */
     const [isTagDetailOpen, setIsTagDetailOpen] = useState<boolean>(false);
     const [selectedTag, setSelectedTag] = useState<CharacterProps>();
@@ -36,9 +37,12 @@ const RickAndMortySelect = () => {
 
     const onDialogClose = useCallback(() => {
         setIsTagDetailOpen(false);
+        /**
+         * Display data when dialog closing (prevent white modal)
+         */
         setTimeout(() => {
             setSelectedTag(undefined);
-        }, 500);
+        }, rickAndMortyDetailModalEaseDuration);
     }, []);
     /**
      * RENDER CUSTOM LIST ITEM

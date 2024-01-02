@@ -1,7 +1,5 @@
 "use client";
 
-import { XCircleIcon } from "@heroicons/react/16/solid";
-import { ArrowPathIcon } from "@heroicons/react/24/solid";
 import clsx from "clsx";
 import { FocusScope } from "react-aria";
 import {
@@ -15,6 +13,9 @@ import {
 } from "react-aria-components";
 import { ErrorBoundary } from "react-error-boundary";
 import { twMerge } from "tailwind-merge";
+
+import { XCircleIcon } from "@heroicons/react/16/solid";
+import { ArrowPathIcon } from "@heroicons/react/24/solid";
 
 import { MultiSelectProps } from ".";
 import useMultiSelect from "./useMultiSelect";

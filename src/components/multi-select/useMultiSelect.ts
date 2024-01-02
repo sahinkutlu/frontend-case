@@ -20,22 +20,28 @@ const useMultiSelect = <T extends object>(props: MultiSelectProps<T>) => {
         setFilterText: setText,
         onTagSelect,
     } = props;
-
-    // REFS
+    /**
+     * ELEMENT REFS
+     */
     const textFieldRef = useRef<HTMLInputElement>(null);
     const inputFieldRef = useRef<HTMLInputElement>(null);
     const listBoxRef = useRef<HTMLDivElement>(null);
-
-    // TEXT FIELD WIDTH
+    /**
+     * Textfield width for dynamic popover width
+     */
     const [textFieldWidth, setTextFieldWith] = useState<number>();
 
-    // POPOVER STATE
+    /**
+     * Popover state
+     */
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const openList = useCallback(() => {
         setIsOpen(true);
     }, []);
     const closeList = useCallback(() => setIsOpen(false), []);
-    //  ASYNC LIST
+    /**
+     * Filter and paginate data
+     */
     const { errorMessage, isLoading, items, loadMore, setFilterText } =
         useMultiSelectList({ filterParams, url });
 

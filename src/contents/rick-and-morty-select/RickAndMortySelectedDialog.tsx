@@ -1,6 +1,5 @@
 import React from "react";
 
-import { XMarkIcon } from "@heroicons/react/16/solid";
 import clsx from "clsx";
 import get from "lodash/get";
 import {
@@ -10,6 +9,10 @@ import {
     Modal,
     ModalOverlay,
 } from "react-aria-components";
+
+import { XMarkIcon } from "@heroicons/react/16/solid";
+
+import { rickAndMortyDetailModalEaseDuration } from "@/config/duration";
 
 import { CharacterProps } from ".";
 
@@ -23,27 +26,43 @@ const RickAndMortySelectedDialog: React.FC<RickAndMortySelectedDialogProps> = ({
     item,
     onClose,
 }) => {
+    /**
+     * Computed Data
+     */
     const imgSrc = get(item, "image");
     const name = get(item, "name");
     const gender = get(item, "gender");
     const status = get(item, "status");
     const species = get(item, "species");
     const isAlive = status === "Alive";
+
     return (
         <DialogTrigger isOpen={isOpen} onOpenChange={onClose}>
             <ModalOverlay
-                className={({ isEntering, isExiting }) => `
-          fixed inset-0 z-10 flex min-h-full items-center justify-center overflow-y-auto bg-black/25 p-4 text-center backdrop-blur
-          ${isEntering ? "duration-300 ease-out animate-in fade-in" : ""}
-          ${isExiting ? "duration-200 ease-in animate-out fade-out" : ""}
-        `}
+                className={({ isEntering, isExiting }) =>
+                    clsx(
+                        "fixed inset-0 z-10 flex min-h-full items-center justify-center overflow-y-auto bg-black/25 p-4 text-center backdrop-blur",
+                        {
+                            "duration-300 ease-out animate-in fade-in":
+                                isEntering,
+                            [`duration-${rickAndMortyDetailModalEaseDuration} ease-in animate-out fade-out`]:
+                                isExiting,
+                        }
+                    )
+                }
             >
                 <Modal
-                    className={({ isEntering, isExiting }) => `
-            w-full max-w-sm overflow-hidden rounded-2xl bg-white text-left align-middle shadow-xl
-            ${isEntering ? "duration-300 ease-out animate-in zoom-in-95" : ""}
-            ${isExiting ? "duration-200 ease-in animate-out zoom-out-95" : ""}
-          `}
+                    className={({ isEntering, isExiting }) =>
+                        clsx(
+                            "w-full max-w-sm overflow-hidden rounded-2xl bg-white text-left align-middle shadow-xl",
+                            {
+                                "duration-300 ease-out animate-in zoom-in-95":
+                                    isEntering,
+                                [`duration-${rickAndMortyDetailModalEaseDuration} ease-in animate-out zoom-out-95`]:
+                                    isExiting,
+                            }
+                        )
+                    }
                 >
                     <Dialog role="dialog" className="relative outline-none">
                         <div className="px-6 pt-3">

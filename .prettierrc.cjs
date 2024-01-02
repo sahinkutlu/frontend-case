@@ -14,6 +14,7 @@ module.exports = {
         "^server-only|client-only$",
         "^react$",
         "<THIRD_PARTY_MODULES>",
+        "@heroicons/(.*)$",
         "^@/(.*)$",
         "^~/(.*)$",
         "^[./]",
