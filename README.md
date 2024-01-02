@@ -59,7 +59,7 @@
 
 ## About The Project
 
-[![Rick and Morty Multiselect][product-screenshot]](https://example.com)
+[![Rick and Morty Multiselect][product-screenshot]](https://rick-and-morty-multi-select-nine.vercel.app/)
 
 **Application Overview:** I developed an application using Adobe’s React Aria components. The primary reasons for this choice were their asynchronous list structure and customizable components.
 
