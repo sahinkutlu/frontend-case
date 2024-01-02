@@ -2,6 +2,7 @@ import { useCallback, useState } from "react";
 
 import { MultiSelect } from "@/components/multi-select";
 import { rickAndMortyDetailModalEaseDuration } from "@/config/duration";
+import { rickAndMortyApiUrl } from "@/config/url";
 
 import { CharacterProps } from ".";
 import RickAndMortyListItem from "./RickAndMortyListItem";
@@ -69,7 +70,7 @@ const RickAndMortySelect = () => {
                 <MultiSelect
                     label="Rick and Morty Character Search"
                     aria-label="Rick and Morty Character Search"
-                    url="https://rickandmortyapi.com/api/character/"
+                    url={rickAndMortyApiUrl}
                     selectedItems={selectedItems}
                     onChange={updateSelectedItems}
                     displayValue={renderCustomDisplay}
