@@ -1,3 +1,5 @@
+"use client";
+
 import { XCircleIcon } from "@heroicons/react/16/solid";
 import { ArrowPathIcon } from "@heroicons/react/24/solid";
 import clsx from "clsx";
@@ -11,6 +13,7 @@ import {
     Popover,
     TextField,
 } from "react-aria-components";
+import { ErrorBoundary } from "react-error-boundary";
 import { twMerge } from "tailwind-merge";
 
 import { MultiSelectProps } from ".";
@@ -59,8 +62,9 @@ const MultiSelect = <T extends object>(props: MultiSelectProps<T>) => {
             listItemClasses
         )
     );
+
     return (
-        <>
+        <ErrorBoundary fallback={<p>⚠️Something went wrong</p>}>
             <TextField
                 ref={textFieldRef}
                 className="relative w-full rounded-md border border-slate-200 bg-white/90 p-1 shadow"
@@ -152,7 +156,7 @@ const MultiSelect = <T extends object>(props: MultiSelectProps<T>) => {
                     </ListBox>
                 )}
             </Popover>
-        </>
+        </ErrorBoundary>
     );
 };
 
