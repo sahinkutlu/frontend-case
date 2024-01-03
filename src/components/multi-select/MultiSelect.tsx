@@ -24,12 +24,11 @@ import useMultiSelect from "./useMultiSelect";
 const MultiSelect = <T extends object>(props: MultiSelectProps<T>) => {
     const {
         autoFocus,
+        classes,
         containFocus = true,
         filterText,
         restoreFocus,
         label,
-        listClasses,
-        listItemClasses,
         placeholder,
         popoverPlacement = "bottom",
         selectedItems,
@@ -60,16 +59,46 @@ const MultiSelect = <T extends object>(props: MultiSelectProps<T>) => {
         openList,
         removeItem,
     } = useMultiSelect(props);
+    const labelCN = twMerge(
+        clsx(
+            "relative m-0 p-0 px-0.5 text-xs leading-none text-slate-400 [&>.label-line]:bg-white",
+            classes?.label
+        )
+    );
+    const labelWrapperCN = twMerge(
+        clsx(
+            "absolute left-0 top-0 z-[2] flex transition-opacity duration-150 ease-in-out",
+            classes?.labelWrapper,
+            {
+                "pointer-events-none opacity-0": !filterText,
+                "pointer-events-auto opacity-100":
+                    filterText || placeholder || selectedItems?.length > 0,
+            }
+        )
+    );
     const listCN = twMerge(
         clsx(
             "max-h-[500px] min-h-[150px] h-[calc(100vh/2-100px)] overflow-auto bg-white max-w-full",
-            listClasses
+            classes?.list
         )
     );
     const listItemCN = twMerge(
         clsx(
             "selected:bg-slate-100 relative cursor-default px-2 py-1 outline-none focus-visible:bg-slate-200",
-            listItemClasses
+            classes?.listItem
+        )
+    );
+    const popoverCN = twMerge(clsx("max-w-full", classes?.popover));
+    const selectCN = twMerge(
+        clsx(
+            "relative max-h-72 w-full overflow-auto rounded-md border border-slate-200 bg-white/90 px-1.5 py-2 shadow",
+            classes?.select
+        )
+    );
+    const tagCN = twMerge(
+        clsx(
+            "item-center inline-flex gap-1 rounded-md border border-slate-200 bg-slate-50 px-2 py-1 text-sm text-slate-500 selected:border-blue-400",
+            classes?.tag
         )
     );
 
@@ -78,27 +107,18 @@ const MultiSelect = <T extends object>(props: MultiSelectProps<T>) => {
             <div className="relative w-full">
                 {label && (
                     <div
-                        className={clsx(
-                            "absolute left-0 top-0 z-[2] flex transition-opacity duration-150 ease-in-out",
-                            {
-                                "pointer-events-none opacity-0": !filterText,
-                                "pointer-events-auto opacity-100":
-                                    filterText ||
-                                    placeholder ||
-                                    selectedItems?.length > 0,
-                            }
-                        )}
+                        className={labelWrapperCN}
                         style={{ transform: "translate(0.5rem, -50%)" }}
                     >
-                        <Label className="relative m-0 p-0 px-0.5 text-xs leading-none text-slate-400">
+                        <Label className={labelCN}>
                             {label}
-                            <div className="absolute left-0 top-1/2 z-[-1] h-[1px] w-full bg-white"></div>
+                            <div className="label-line absolute left-0 top-1/2 z-[-1] h-[1px] w-full" />
                         </Label>
                     </div>
                 )}
                 <TextField
                     ref={textFieldRef}
-                    className="relative max-h-72 w-full overflow-auto rounded-md border border-slate-200 bg-white/90 px-1.5 py-2 shadow"
+                    className={selectCN}
                     aria-label="tag wrapper"
                 >
                     <Group
@@ -114,7 +134,7 @@ const MultiSelect = <T extends object>(props: MultiSelectProps<T>) => {
                                 <span
                                     tabIndex={0}
                                     role="button"
-                                    className="item-center inline-flex gap-1 rounded-md border border-slate-200 bg-slate-50 px-2 py-1 text-sm text-slate-500 selected:border-blue-400"
+                                    className={tagCN}
                                     key={getIdValue(tagItem)}
                                     onKeyDown={handleTagKeyDown(tagItem)}
                                     onClick={handleTagClick(tagItem)}
@@ -155,7 +175,7 @@ const MultiSelect = <T extends object>(props: MultiSelectProps<T>) => {
                 isOpen={isOpen}
                 onOpenChange={closeList}
                 style={{ width: `${textFieldWidth}px` }}
-                className="max-w-full"
+                className={popoverCN}
                 placement={popoverPlacement}
             >
                 {isLoading && (

@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 
 import { MultiSelect } from "@/components/multi-select";
 import { rickAndMortyDetailModalEaseDuration } from "@/config/duration";
@@ -57,6 +57,16 @@ const RickAndMortySelect = () => {
         ),
         [filterText]
     );
+    /**
+     * Multi select classes
+     */
+    const multiSelectClasses = useMemo(
+        () => ({
+            list: "shadow-lg rounded-lg border border-slate-100",
+            listItem: "p-0 group",
+        }),
+        []
+    );
     return (
         <>
             <RickAndMortySelectedDialog
@@ -75,8 +85,7 @@ const RickAndMortySelect = () => {
                     selectedItems={selectedItems}
                     onChange={updateSelectedItems}
                     displayValue={renderCustomDisplay}
-                    listClasses="shadow-lg rounded-lg border border-slate-100"
-                    listItemClasses="p-0 group"
+                    classes={multiSelectClasses}
                     filterText={filterText}
                     setFilterText={updateFilterText}
                     onTagSelect={onTagSelect}

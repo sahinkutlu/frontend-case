@@ -1,19 +1,27 @@
 import type { AriaListBoxProps, Placement } from "react-aria";
 
+interface ClassesProps {
+    label?: string;
+    labelWrapper?: string;
+    list?: string;
+    listItem?: string;
+    popover?: string;
+    select?: string;
+    tag?: string;
+}
 type WithoutChildren<T> = Omit<T, "children">;
 export interface MultiSelectProps<T>
     extends WithoutChildren<AriaListBoxProps<T>> {
     apiResultCursor?: string;
     apiResultPath?: string;
     autoFocus?: boolean;
+    classes?: ClassesProps;
     containFocus?: boolean;
     displayValue?: string | ((item: T) => string | React.ReactNode);
     filterParams?: string[];
     filterText?: string;
     idValue?: string | ((item: T) => string);
     label?: string;
-    listClasses?: string;
-    listItemClasses?: string;
     placeholder?: string;
     popoverPlacement?: Placement;
     restoreFocus?: boolean;
