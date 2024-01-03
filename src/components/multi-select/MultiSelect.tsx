@@ -31,6 +31,7 @@ const MultiSelect = <T extends object>(props: MultiSelectProps<T>) => {
         listClasses,
         listItemClasses,
         placeholder,
+        popoverPlacement = "bottom",
         selectedItems,
         ...rest
     } = props;
@@ -60,7 +61,10 @@ const MultiSelect = <T extends object>(props: MultiSelectProps<T>) => {
         removeItem,
     } = useMultiSelect(props);
     const listCN = twMerge(
-        clsx("max-h-[290px] overflow-auto bg-white max-w-full", listClasses)
+        clsx(
+            "max-h-[500px] min-h-[150px] h-[calc(100vh/2-100px)] overflow-auto bg-white max-w-full",
+            listClasses
+        )
     );
     const listItemCN = twMerge(
         clsx(
@@ -94,7 +98,7 @@ const MultiSelect = <T extends object>(props: MultiSelectProps<T>) => {
                 )}
                 <TextField
                     ref={textFieldRef}
-                    className="relative w-full rounded-md border border-slate-200 bg-white/90 px-1.5 py-2 shadow"
+                    className="relative max-h-72 w-full overflow-auto rounded-md border border-slate-200 bg-white/90 px-1.5 py-2 shadow"
                     aria-label="tag wrapper"
                 >
                     <Group
@@ -152,6 +156,7 @@ const MultiSelect = <T extends object>(props: MultiSelectProps<T>) => {
                 onOpenChange={closeList}
                 style={{ width: `${textFieldWidth}px` }}
                 className="max-w-full"
+                placement={popoverPlacement}
             >
                 {isLoading && (
                     <div

@@ -1,4 +1,4 @@
-import type { AriaListBoxProps } from "react-aria";
+import type { AriaListBoxProps, Placement } from "react-aria";
 
 type WithoutChildren<T> = Omit<T, "children">;
 export interface MultiSelectProps<T>
@@ -15,6 +15,7 @@ export interface MultiSelectProps<T>
     listClasses?: string;
     listItemClasses?: string;
     placeholder?: string;
+    popoverPlacement?: Placement;
     restoreFocus?: boolean;
     selectedItems: T[];
     tagValue?: string | ((item: T) => string);
