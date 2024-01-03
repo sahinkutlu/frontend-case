@@ -1,6 +1,6 @@
 import type { AriaListBoxProps, Placement } from "react-aria";
 
-interface ClassesProps {
+export interface ClassesProps {
     label?: string;
     labelWrapper?: string;
     list?: string;
