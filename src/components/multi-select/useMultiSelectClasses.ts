@@ -44,7 +44,7 @@ const useMultiSelectClasses = <T extends object>({
     );
     const listItemCN = twMerge(
         clsx(
-            "selected:bg-slate-100 relative cursor-default px-2 py-1 outline-none focus-visible:bg-slate-200",
+            "selected:bg-slate-100 relative cursor-default px-2 py-1 outline-none focus-visible:bg-slate-200 cursor-pointer",
             classes?.listItem
         )
     );
