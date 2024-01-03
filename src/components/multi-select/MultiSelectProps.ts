@@ -6,6 +6,7 @@ export interface ClassesProps {
     list?: string;
     listItem?: string;
     popover?: string;
+    searchInput?: string;
     select?: string;
     tag?: string;
 }

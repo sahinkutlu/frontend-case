@@ -73,6 +73,7 @@ const MultiSelect = <T extends object>(props: MultiSelectProps<T>) => {
         listCN,
         listItemCN,
         popoverCN,
+        searchInputCN,
         selectCN,
         tagCN,
     } = useMultiSelectClasses({
@@ -140,7 +141,7 @@ const MultiSelect = <T extends object>(props: MultiSelectProps<T>) => {
                                 aria-label="filter text"
                                 ref={inputFieldRef}
                                 value={filterText}
-                                className="w-full min-w-32 flex-1 border-b-blue-400 outline-none focus:border-b"
+                                className={searchInputCN}
                                 onClick={openList}
                                 onChange={onFilterTextChange}
                                 onKeyDown={handleInputKeyDown}

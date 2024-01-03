@@ -75,7 +75,10 @@ const RickAndMortySelect = () => {
                 onClose={onDialogClose}
             />
             <div className="flex w-full max-w-lg flex-col items-center p-3">
-                <img className="max-w-full" src="/rickandmorty.png" />
+                <img
+                    className="mb-3 h-auto w-48 max-w-full"
+                    src="/rickandmorty.png"
+                />
 
                 <MultiSelect
                     label="Rick and Morty Character Search"
@@ -89,6 +92,10 @@ const RickAndMortySelect = () => {
                     filterText={filterText}
                     setFilterText={updateFilterText}
                     onTagSelect={onTagSelect}
+                />
+                <img
+                    className="h-auto w-64 max-w-full"
+                    src="/rick-and-morty-portal.png"
                 />
             </div>
         </>

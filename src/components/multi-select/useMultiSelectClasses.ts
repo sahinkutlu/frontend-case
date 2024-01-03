@@ -47,6 +47,12 @@ const useMultiSelectClasses = <T extends object>({
         )
     );
     const popoverCN = twMerge(clsx("max-w-full", classes?.popover));
+    const searchInputCN = twMerge(
+        clsx(
+            "w-full min-w-32 flex-1 border-b-blue-400 text-sm text-slate-500 outline-none focus:border-b",
+            classes?.searchInput
+        )
+    );
     const selectCN = twMerge(
         clsx(
             "relative max-h-72 w-full overflow-auto rounded-md border border-slate-200 bg-white/90 px-1.5 py-2 shadow",
@@ -65,6 +71,7 @@ const useMultiSelectClasses = <T extends object>({
         listCN,
         listItemCN,
         popoverCN,
+        searchInputCN,
         selectCN,
         tagCN,
     };
