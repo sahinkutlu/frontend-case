@@ -63,7 +63,7 @@ const RickAndMortySelect = () => {
     const multiSelectClasses = useMemo(
         () => ({
             list: "border border-slate-100 rounded-lg",
-            listItem: "p-0 group selected:bg-green-100/40",
+            listItem: "p-0 group selected:bg-green-100/40 cursor-pointer",
             popover: "shadow-lg rounded-lg",
             searchInput: "bg-white/20 border-b-green-100",
             select: "bg-white/50 shadow-none border-slate-200",
