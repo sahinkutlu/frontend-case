@@ -6,11 +6,13 @@ import { ClassesProps } from ".";
 interface useMultiSelectClassesProps<T> {
     classes?: ClassesProps;
     filterText?: string;
+    isOpen: boolean;
     placeholder?: string;
     selectedItems: T[];
 }
 const useMultiSelectClasses = <T extends object>({
     classes,
+    isOpen,
     filterText,
     placeholder,
     selectedItems,
@@ -46,11 +48,14 @@ const useMultiSelectClasses = <T extends object>({
             classes?.listItem
         )
     );
-    const popoverCN = twMerge(clsx("max-w-full", classes?.popover));
+    const popoverCN = twMerge(
+        clsx("max-w-full bg-white p-1", classes?.popover)
+    );
     const searchInputCN = twMerge(
         clsx(
             "w-full min-w-24 flex-1 border-b-blue-400 text-sm text-slate-500 outline-none focus:border-b",
-            classes?.searchInput
+            classes?.searchInput,
+            { "opacity-0 md:opacity-100": isOpen }
         )
     );
     const selectCN = twMerge(

@@ -145,6 +145,7 @@ npm run preview
 -   [X] Enabled character display in a modal view by pressing space or enter when tag selected
 -   [X] Facilitated navigation and actions using keys
 -   [X] Incorporated infinite scrolling functionality.
+-   [X] Searh input on popover in small devices
 -   [ ] Refactor code blocks into separate components for enhanced performance and readability
 -   [ ] Optimize images for faster load times and better user experience
 -   [ ] Conduct a thorough analysis of code quality

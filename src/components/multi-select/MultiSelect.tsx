@@ -79,6 +79,7 @@ const MultiSelect = <T extends object>(props: MultiSelectProps<T>) => {
     } = useMultiSelectClasses({
         classes,
         filterText,
+        isOpen,
         selectedItems,
         placeholder,
     });
@@ -164,6 +165,18 @@ const MultiSelect = <T extends object>(props: MultiSelectProps<T>) => {
                 className={popoverCN}
                 placement={popoverPlacement}
             >
+                {/* TODO - Conditional rendering with device width */}
+                <Input
+                    aria-label="filter text"
+                    ref={inputFieldRef}
+                    value={filterText}
+                    className="mb-1 block w-full rounded-md border border-slate-200 outline-none md:hidden"
+                    onChange={onFilterTextChange}
+                    onKeyDown={handleInputKeyDown}
+                    placeholder={
+                        selectedItems?.length > 0 ? "" : placeholder || label
+                    }
+                />
                 {/* TODO - Move this to a separate component and make customizable */}
                 {isLoading && (
                     <div
