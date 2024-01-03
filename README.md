@@ -139,16 +139,17 @@ npm run preview
 
 ## Roadmap
 
--   [x] Multiselect
--   [x] Autocomplete search
--   [x] Query highlight
--   [x] Character display in modal
--   [x] Navigation and action with keys
--   [x] Infinite scrolling
--   [ ] Image optimization
--   [ ] Code Quality Analyze
--   [ ] Testing
--   [ ] Storybook
+-   [X] Developed a reusable multiselect and customizable component
+-   [X] Implemented an autocomplete search feature
+-   [X] Added a feature to highlight search queries
+-   [X] Enabled character display in a modal view by pressing space or enter when tag selected
+-   [X] Facilitated navigation and actions using keys
+-   [X] Incorporated infinite scrolling functionality.
+-   [ ] Refactor code blocks into separate components for enhanced performance and readability
+-   [ ] Optimize images for faster load times and better user experience
+-   [ ] Conduct a thorough analysis of code quality
+-   [ ] Perform comprehensive testing to ensure functionality and reliability
+-   [ ] Develop a Storybook for documenting the application’s components
 
 See the [open issues](https://github.com/pikselinweb/rick-and-morty-multi-select/issues) for a full list of proposed features (and known issues).
 

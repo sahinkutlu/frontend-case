@@ -85,6 +85,7 @@ const MultiSelect = <T extends object>(props: MultiSelectProps<T>) => {
     return (
         <ErrorBoundary fallback={<p>⚠️Something went wrong</p>}>
             <div className="relative w-full">
+                {/* TODO - Move this to a separate component */}
                 {label && (
                     <div
                         className={labelWrapperCN}
@@ -96,6 +97,7 @@ const MultiSelect = <T extends object>(props: MultiSelectProps<T>) => {
                         </Label>
                     </div>
                 )}
+                {/* End of component */}
                 <TextField
                     ref={textFieldRef}
                     className={selectCN}
@@ -110,6 +112,7 @@ const MultiSelect = <T extends object>(props: MultiSelectProps<T>) => {
                             restoreFocus={restoreFocus}
                             autoFocus={autoFocus}
                         >
+                            {/* TODO - Move this to a separate component */}
                             {selectedItems?.map(tagItem => (
                                 <span
                                     tabIndex={0}
@@ -131,6 +134,7 @@ const MultiSelect = <T extends object>(props: MultiSelectProps<T>) => {
                                     </Button>
                                 </span>
                             ))}
+                            {/* End of component */}
 
                             <Input
                                 aria-label="filter text"
@@ -150,6 +154,7 @@ const MultiSelect = <T extends object>(props: MultiSelectProps<T>) => {
                     </Group>
                 </TextField>
             </div>
+
             <Popover
                 triggerRef={textFieldRef}
                 isOpen={isOpen}
@@ -158,6 +163,7 @@ const MultiSelect = <T extends object>(props: MultiSelectProps<T>) => {
                 className={popoverCN}
                 placement={popoverPlacement}
             >
+                {/* TODO - Move this to a separate component and make customizable */}
                 {isLoading && (
                     <div
                         aria-label="loading spinner"
@@ -167,11 +173,14 @@ const MultiSelect = <T extends object>(props: MultiSelectProps<T>) => {
                         <ArrowPathIcon className="z-20 h-8 w-8 animate-spin text-blue-400" />
                     </div>
                 )}
+                {/* End of component */}
                 {errorMessage ? (
+                    //    TODO - Move this to a separate component and make customizable
                     <div className="pb-3 text-sm text-red-400">
                         {errorMessage}
                     </div>
                 ) : (
+                    //   End of component
                     <ListBox
                         ref={listBoxRef}
                         aria-label="multi select"
@@ -184,6 +193,7 @@ const MultiSelect = <T extends object>(props: MultiSelectProps<T>) => {
                         {...rest}
                     >
                         {item => (
+                            //    TODO - Move this to a separate component and make customizable
                             <ListBoxItem
                                 className={listItemCN}
                                 id={getIdValue(item)}
@@ -192,6 +202,7 @@ const MultiSelect = <T extends object>(props: MultiSelectProps<T>) => {
                             >
                                 {getDisplayValue(item)}
                             </ListBoxItem>
+                            //   End of component
                         )}
                     </ListBox>
                 )}
