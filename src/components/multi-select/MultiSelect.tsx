@@ -56,7 +56,9 @@ const MultiSelect = <T extends object>(props: MultiSelectProps<T>) => {
         openList,
         removeItem,
     } = useMultiSelect(props);
-    const listCN = twMerge(clsx("max-h-[290px] overflow-auto", listClasses));
+    const listCN = twMerge(
+        clsx("max-h-[290px] overflow-auto bg-white max-w-full", listClasses)
+    );
     const listItemCN = twMerge(
         clsx(
             "selected:bg-slate-100 relative cursor-default px-2 py-1 outline-none focus-visible:bg-slate-200",
@@ -117,7 +119,7 @@ const MultiSelect = <T extends object>(props: MultiSelectProps<T>) => {
                 isOpen={isOpen}
                 onOpenChange={closeList}
                 style={{ width: `${textFieldWidth}px` }}
-                className="min-w-[450px]"
+                className="max-w-full"
             >
                 {isLoading && (
                     <div
