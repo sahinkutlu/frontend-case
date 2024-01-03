@@ -70,6 +70,7 @@ const RickAndMortySelect = () => {
                 <MultiSelect
                     label="Rick and Morty Character Search"
                     aria-label="Rick and Morty Character Search"
+                    placeholder="Search for a character"
                     url={rickAndMortyApiUrl}
                     selectedItems={selectedItems}
                     onChange={updateSelectedItems}

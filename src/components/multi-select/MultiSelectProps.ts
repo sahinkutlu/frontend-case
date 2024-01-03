@@ -11,8 +11,10 @@ export interface MultiSelectProps<T>
     filterParams?: string[];
     filterText?: string;
     idValue?: string | ((item: T) => string);
+    label?: string;
     listClasses?: string;
     listItemClasses?: string;
+    placeholder?: string;
     restoreFocus?: boolean;
     selectedItems: T[];
     tagValue?: string | ((item: T) => string);
