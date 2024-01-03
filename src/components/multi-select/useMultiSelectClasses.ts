@@ -49,7 +49,7 @@ const useMultiSelectClasses = <T extends object>({
     const popoverCN = twMerge(clsx("max-w-full", classes?.popover));
     const searchInputCN = twMerge(
         clsx(
-            "w-full min-w-32 flex-1 border-b-blue-400 text-sm text-slate-500 outline-none focus:border-b",
+            "w-full min-w-24 flex-1 border-b-blue-400 text-sm text-slate-500 outline-none focus:border-b",
             classes?.searchInput
         )
     );
