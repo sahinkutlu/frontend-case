@@ -170,7 +170,7 @@ const MultiSelect = <T extends object>(props: MultiSelectProps<T>) => {
                     aria-label="filter text"
                     ref={inputFieldRef}
                     value={filterText}
-                    className="mb-1 block w-full rounded-md border border-slate-200 outline-none md:hidden"
+                    className="mb-1 block w-full rounded-md border border-slate-200 p-1 text-sm text-slate-500 outline-none md:hidden"
                     onChange={onFilterTextChange}
                     onKeyDown={handleInputKeyDown}
                     placeholder={
