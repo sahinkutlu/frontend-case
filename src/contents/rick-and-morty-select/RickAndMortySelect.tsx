@@ -63,7 +63,10 @@ const RickAndMortySelect = () => {
     const multiSelectClasses = useMemo(
         () => ({
             list: "shadow-lg rounded-lg border border-slate-100",
-            listItem: "p-0 group",
+            listItem: "p-0 group selected:bg-green-100/40",
+            searchInput: "bg-white/20 border-b-green-100",
+            select: "bg-white/50 shadow-none border-slate-200",
+            tag: "bg-green-100/10 shadow-none border-green-100",
         }),
         []
     );
@@ -74,7 +77,7 @@ const RickAndMortySelect = () => {
                 item={selectedTag}
                 onClose={onDialogClose}
             />
-            <div className="flex w-full max-w-lg flex-col items-center p-3">
+            <div className="relative flex w-full max-w-lg flex-col items-center rounded-lg bg-white/50 p-3">
                 <img
                     className="mb-3 h-auto w-48 max-w-full"
                     src="/rickandmorty.png"
