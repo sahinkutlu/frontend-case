@@ -1,0 +1,9 @@
+# Config files
+*.config.js
+*.config.cjs
+
+# Statically hosted javascript files
+public/*.js
+public/*.cjs
+dist
+archive
