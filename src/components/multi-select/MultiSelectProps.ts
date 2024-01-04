@@ -27,6 +27,7 @@ export interface MultiSelectProps<T>
     popoverPlacement?: Placement;
     restoreFocus?: boolean;
     selectedItems: T[];
+    selectMode?: "single" | "multiple";
     tagValue?: string | ((item: T) => string);
     textValue?: string | ((item: T) => string);
     url?: string;

@@ -7,8 +7,17 @@ import { rickAndMortyApiUrl } from "@/config/url";
 import { CharacterProps } from ".";
 import RickAndMortyListItem from "./RickAndMortyListItem";
 import RickAndMortySelectedDialog from "./RickAndMortySelectedDialog";
+import SelectMode from "./SelectMode";
 
 const RickAndMortySelect = () => {
+    const [selected, setSelected] = useState(true);
+    const changeSelectMode = useCallback((selected: boolean) => {
+        setSelected(selected);
+    }, []);
+    const selectMode = useMemo(
+        () => (selected ? "multiple" : "single"),
+        [selected]
+    );
     /**
      * Filter state
      */
@@ -62,6 +71,7 @@ const RickAndMortySelect = () => {
      */
     const multiSelectClasses = useMemo(
         () => ({
+            label: "[&>.label-line]:bg-white/90",
             list: "border border-slate-100 rounded-lg",
             listItem: "p-0 group selected:bg-green-100/40 cursor-pointer",
             popover: "shadow-lg rounded-lg",
@@ -94,6 +104,7 @@ const RickAndMortySelect = () => {
                     displayValue={renderCustomDisplay}
                     classes={multiSelectClasses}
                     filterText={filterText}
+                    selectMode={selectMode}
                     setFilterText={updateFilterText}
                     onTagSelect={onTagSelect}
                 />
@@ -101,6 +112,7 @@ const RickAndMortySelect = () => {
                     className="h-auto w-64 max-w-full"
                     src="/rick-and-morty-portal.png"
                 />
+                <SelectMode selected={selected} onChange={changeSelectMode} />
             </div>
         </>
     );

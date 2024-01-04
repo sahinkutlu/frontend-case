@@ -16,6 +16,7 @@ const useMultiSelect = <T extends object>(props: MultiSelectProps<T>) => {
         textValue,
         url,
         selectedItems,
+        selectMode,
         onChange,
         setFilterText: setText,
         onTagSelect,
@@ -30,7 +31,11 @@ const useMultiSelect = <T extends object>(props: MultiSelectProps<T>) => {
      * Textfield width for dynamic popover width
      */
     const [textFieldWidth, setTextFieldWith] = useState<number>();
-
+    /**
+     * Filter and paginate data
+     */
+    const { errorMessage, isLoading, items, loadMore, setFilterText } =
+        useMultiSelectList({ filterParams, url });
     /**
      * Popover state
      */
@@ -38,12 +43,11 @@ const useMultiSelect = <T extends object>(props: MultiSelectProps<T>) => {
     const openList = useCallback(() => {
         setIsOpen(true);
     }, []);
-    const closeList = useCallback(() => setIsOpen(false), []);
-    /**
-     * Filter and paginate data
-     */
-    const { errorMessage, isLoading, items, loadMore, setFilterText } =
-        useMultiSelectList({ filterParams, url });
+    const closeList = useCallback(() => {
+        setIsOpen(false);
+        setFilterText("");
+        setText?.("");
+    }, [setFilterText, setText]);
 
     /**
      * Fetch more item by scrolling
@@ -162,9 +166,10 @@ const useMultiSelect = <T extends object>(props: MultiSelectProps<T>) => {
                     );
                     if (itemIndex < 0) {
                         previousSelectedItems.push(targetItem);
-                        setIsOpen(false);
-                        setFilterText("");
-                        setText?.("");
+                        if (selectMode === "single") {
+                            setIsOpen(false);
+                        }
+
                         onChange(previousSelectedItems);
                     }
                     /**
@@ -179,7 +184,7 @@ const useMultiSelect = <T extends object>(props: MultiSelectProps<T>) => {
                 }
             }
         },
-        [getIdValue, items, onChange, selectedItems, setFilterText, setText]
+        [getIdValue, items, onChange, selectMode, selectedItems]
     );
     /**
      * Store debounce with useRef instead of useCallback to prevent creating new debounce function on every render

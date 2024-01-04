@@ -146,6 +146,7 @@ npm run preview
 -   [X] Facilitated navigation and actions using keys
 -   [X] Incorporated infinite scrolling functionality.
 -   [X] Searh input on popover in small devices
+-   [X] Select Mode Switch
 -   [ ] Refactor code blocks into separate components for enhanced performance and readability
 -   [ ] Optimize images for faster load times and better user experience
 -   [ ] Conduct a thorough analysis of code quality
