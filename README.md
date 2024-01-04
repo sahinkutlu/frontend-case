@@ -206,4 +206,4 @@ Project Link: [https://github.com/pikselinweb/rick-and-morty-multi-select](https
 [linkedin-url]: https://www.linkedin.com/in/gkhanduman/
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
 [React-url]: https://reactjs.org/
-[product-screenshot]: public/rick-and-morty-ss.png
+[product-screenshot]: public/rick-and-morty.gif
