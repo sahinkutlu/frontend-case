@@ -1,0 +1,140 @@
+$control-border-radius: 12px;
+$border-color: rgb(88, 144, 158);
+
+.control {
+  width: 450px;
+  border: 1px solid $border-color;
+  border-radius: $control-border-radius;
+  display: flex;
+  flex-direction: row;
+  padding: 6px;
+  box-shadow: 0 2px 5px 0px rgb(221, 221, 221);
+  position: relative;
+
+  &Icon {
+    margin: auto 0 auto 12px;
+    padding: 8px;
+    cursor: pointer;
+    color: rgb(39, 69, 77);
+  }
+}
+
+.selectionContainer {
+  flex: 1;
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 6px;
+
+  .selectedCell {
+    padding: 8px 12px;
+    background-color: rgb(216, 222, 231);
+    border-radius: 8px;
+    font-weight: 400;
+    color: rgb(59, 71, 83);
+
+    .xMark {
+      padding: 2px;
+      color: white;
+      background-color: rgb(150, 158, 170);
+      border-radius: 4px;
+      cursor: pointer;
+
+      &:hover {
+        background-color: rgb(96, 101, 109);
+      }
+    }
+  }
+
+  .searchContainer {
+    flex: 1;
+    align-self: center;
+
+    .searchInput {
+      width: 100%;
+      padding: 0;
+      border: none;
+
+      &:focus {
+        outline: 0;
+      }
+    }
+  }
+}
+
+.menu {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 0;
+  right: 0;
+  border-radius: $control-border-radius;
+  border: 1px solid $border-color;
+  overflow: hidden;
+  max-height: 350px;
+  overflow-y: auto;
+}
+
+$menu-item-gap: 10px;
+.menuItem {
+  padding: 12px;
+  background-color: rgb(244, 246, 248);
+  display: flex;
+  gap: $menu-item-gap;
+  align-items: center;
+  border-bottom: 1px solid $border-color;
+  cursor: pointer;
+
+  transition: background-color 0.2s;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &:hover {
+    background-color: rgb(222, 226, 231);
+  }
+
+  .content {
+    display: flex;
+    gap: $menu-item-gap;
+    
+    &Image {
+      height: 48px;
+      width: 48px;
+      overflow: hidden;
+      border-radius: 8px;
+      background-color: rgb(235, 185, 185);
+    }
+
+    &Info {
+      margin: auto;
+    }
+
+    &Description {
+      font-size: .9em;
+      color: rgb(97, 99, 102);
+    }
+  }
+}
+
+.loadingContainer {
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loadingIcon {
+  font-size: 32px;
+  color: rgb(59, 66, 77);
+  animation: loading-animation 1s linear infinite;
+}
+
+@keyframes loading-animation {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
