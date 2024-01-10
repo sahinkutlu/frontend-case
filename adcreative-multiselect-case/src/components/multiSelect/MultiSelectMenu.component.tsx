@@ -10,7 +10,6 @@ const noop = () => {};
 const isItemSelected = (selectedOptions: MultiSelectOption[], id: number) =>
   selectedOptions.some((option) => option.id === id);
 
-// toLowerCase suits needs here but would require more enhanced solution if it wasn't this simple
 const hasSearchText = (text: string, searchText: string) => text.match(new RegExp(searchText, "i"));
 
 const getHighlightedText = (text: string, searchText: string) => {
