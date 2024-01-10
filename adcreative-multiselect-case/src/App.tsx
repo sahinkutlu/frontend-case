@@ -36,7 +36,7 @@ function App() {
         setSearchText={setSearchText}
         options={multiSelectOptions}
         loading={loading}
-        error={error}
+        error={data?.error ?? error}
         selectedOptions={selectedCharacters}
         setSelectedOptions={setSelectedCharacters}
       />

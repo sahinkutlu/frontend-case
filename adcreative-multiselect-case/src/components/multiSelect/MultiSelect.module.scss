@@ -122,7 +122,7 @@ $menu-item-gap: 10px;
   }
 }
 
-.loadingContainer {
+.loadingContainer, .errorContainer {
   height: 100px;
   display: flex;
   justify-content: center;
@@ -142,4 +142,12 @@ $menu-item-gap: 10px;
   100% {
     transform: rotate(360deg);
   }
+}
+
+.errorIcon {
+  color: rgb(194, 18, 18);
+}
+
+.error {
+  border-color: rgb(194, 18, 18);
 }

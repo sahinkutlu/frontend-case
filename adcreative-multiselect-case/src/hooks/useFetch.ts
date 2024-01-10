@@ -13,7 +13,7 @@ function useFetch<T>(url: string, queryParamString: string) {
     fetch(url+queryParamString)
       .then((res) => res.json())
       .then((data) => {setData(data)})
-      .catch((err) => setError(err))
+      .catch((err) => setError('Network call has failed!'))
       .finally(() => setLoading(false));
   }, [url, queryParamString]);
 

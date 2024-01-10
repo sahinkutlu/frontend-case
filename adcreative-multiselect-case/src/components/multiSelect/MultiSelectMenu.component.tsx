@@ -1,5 +1,5 @@
 import styles from "./MultiSelect.module.scss";
-import MenuLoading from "./MultiSelectMenuLoading.component";
+import { MenuLoading, MenuError } from "./MultiSelectMenuLoadingError.component";
 import { MultiSelectOption } from "./MultiSelect.types";
 import { useMultiSelectState } from "./MultiSelect.context";
 import DOMPurify from "dompurify";
@@ -61,9 +61,11 @@ interface MultiSelectMenuProps {
 }
 const MultiSelectMenu = ({ setSelectedOptions }: MultiSelectMenuProps) => {
   const state = useMultiSelectState();
-
+  const menuClasses = state.error ? `${styles.menu} ${styles.error}` : `${styles.menu}` 
   return (
-    <div className={styles.menu}>
+    <div className={menuClasses}>
+      {state.loading && <MenuLoading />}
+      {!state.loading && state.options.length === 0 && <MenuError />}
       {!state.loading &&
         state.options.map((option) => (
           <MenuItem
@@ -75,7 +77,6 @@ const MultiSelectMenu = ({ setSelectedOptions }: MultiSelectMenuProps) => {
             setSelectedOptions={setSelectedOptions}
           />
         ))}
-      {state.loading && <MenuLoading />}
     </div>
   );
 };

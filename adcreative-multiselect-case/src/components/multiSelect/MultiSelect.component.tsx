@@ -62,8 +62,9 @@ const MultiSelect = ({
     };
   }, [ref, dispatch]);
 
+  const controlClasses = error ? `${styles.control} ${styles.error}` : `${styles.control}`;
   return (
-    <div className={styles.control} ref={ref}>
+    <div className={controlClasses} ref={ref}>
       <div className={styles.selectionContainer}>
         <MultiSelectSelectedCells setSelectedOptions={setSelectedOptions} />
         <div className={styles.searchContainer}>
