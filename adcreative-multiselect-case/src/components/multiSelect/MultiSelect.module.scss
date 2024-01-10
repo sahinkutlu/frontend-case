@@ -39,6 +39,7 @@ $border-color: rgb(88, 144, 158);
       background-color: rgb(150, 158, 170);
       border-radius: 4px;
       cursor: pointer;
+      margin-left: 4px;
 
       &:hover {
         background-color: rgb(96, 101, 109);
@@ -70,7 +71,7 @@ $border-color: rgb(88, 144, 158);
   border-radius: $control-border-radius;
   border: 1px solid $border-color;
   overflow: hidden;
-  max-height: 350px;
+  max-height: 450px;
   overflow-y: auto;
 }
 
@@ -104,6 +105,10 @@ $menu-item-gap: 10px;
       overflow: hidden;
       border-radius: 8px;
       background-color: rgb(235, 185, 185);
+
+      img {
+        max-width: 100%;
+      }
     }
 
     &Info {
