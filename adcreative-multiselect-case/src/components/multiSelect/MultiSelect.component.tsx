@@ -8,6 +8,8 @@ import { MultiSelectOption, actions } from "./MultiSelect.types";
 import MultiSelectSelectedCells from "./MultiSelectSelectedCells.components";
 
 export interface MultiSelectProps {
+  searchText: string;
+  setSearchText: React.Dispatch<React.SetStateAction<string>>;
   options: MultiSelectOption[];
   loading: boolean;
   error: any;
@@ -16,19 +18,35 @@ export interface MultiSelectProps {
 }
 
 // Next iteration would be providing replacable components.
-const MultiSelect = ({ options, loading, error, selectedOptions, setSelectedOptions }: MultiSelectProps) => {
+const MultiSelect = ({
+  searchText,
+  setSearchText,
+  options,
+  loading,
+  error,
+  selectedOptions,
+  setSelectedOptions,
+}: MultiSelectProps) => {
   const state = useMultiSelectState();
   const dispatch = useMultiSelectStateDispatch();
 
-  // Set multi selection data related to fetch
+  // useEffects to listen changes and update context to avoid prop drilling
   useEffect(() => {
     dispatch({ type: actions.SET_DATA, payload: { options, loading, error } });
   }, [dispatch, options, loading, error, selectedOptions]);
-
-  // Set selected options to easy access through context
   useEffect(() => {
     dispatch({ type: actions.SET_SELECTED_OPTIONS, payload: selectedOptions });
   }, [dispatch, selectedOptions]);
+  useEffect(() => {
+    dispatch({ type: actions.SET_SEARCH_TEXT, payload: searchText });
+  }, [dispatch, searchText]);
+
+  // Ensure menu is expanded during search
+  useEffect(() => {
+    if (!!searchText.length) {
+      dispatch({ type: actions.EXPAND_MENU });
+    }
+  }, [dispatch, searchText]);
 
   // Handle collapse menu on click outside
   const ref = useRef<HTMLDivElement>(null);
@@ -49,7 +67,13 @@ const MultiSelect = ({ options, loading, error, selectedOptions, setSelectedOpti
       <div className={styles.selectionContainer}>
         <MultiSelectSelectedCells setSelectedOptions={setSelectedOptions} />
         <div className={styles.searchContainer}>
-          <input type="text" className={styles.searchInput} tabIndex={2} />
+          <input
+            type="text"
+            className={styles.searchInput}
+            tabIndex={2}
+            onChange={(e) => setSearchText(e.target.value)} // debounce would be good
+            value={searchText}
+          />
         </div>
       </div>
       <button className={styles.controlIcon} onClick={() => dispatch({ type: actions.TOGGLE_MENU })} tabIndex={3}>

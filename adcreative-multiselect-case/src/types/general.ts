@@ -17,4 +17,5 @@ export interface Character {
 export interface CharacterResponse {
   info: any;
   results: Character[];
+  error?: string; // used when filtered set is empty
 }

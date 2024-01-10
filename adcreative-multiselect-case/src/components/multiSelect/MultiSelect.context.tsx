@@ -7,6 +7,7 @@ const initialState: MultiSelectState = {
   error: null,
   selectedOptions: [],
   menuExpanded: false,
+  searchText: ''
 };
 
 const StateContext = createContext<MultiSelectState>(initialState);
@@ -39,6 +40,12 @@ function stateReducer(state: MultiSelectState, action: Action): MultiSelectState
         menuExpanded: false,
       };
     }
+    case actions.EXPAND_MENU: {
+      return {
+        ...state,
+        menuExpanded: true,
+      };
+    }
     case actions.TOGGLE_MENU: {
       return {
         ...state,
@@ -57,6 +64,12 @@ function stateReducer(state: MultiSelectState, action: Action): MultiSelectState
       return {
         ...state,
         selectedOptions: action.payload,
+      };
+    }
+    case actions.SET_SEARCH_TEXT: {
+      return {
+        ...state,
+        searchText: action.payload,
       };
     }
     default: {
