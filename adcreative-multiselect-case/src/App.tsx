@@ -24,7 +24,7 @@ function App() {
         id: character.id,
         title: character.name,
         description,
-        imageUrl: character.image,
+        imageUrl: character.image
       };
     });
   }, [data]);

@@ -1,10 +1,11 @@
-import MultiSelect, { MultiSelectProps } from "./MultiSelect.component";
+import MultiSelect from "./MultiSelect.component";
 import { MultiSelectStateProvider } from "./MultiSelect.context";
+import { MultiSelectProps } from "./MultiSelect.types";
 
 function MultiSelectContainer(props: MultiSelectProps) {
   return (
-    <MultiSelectStateProvider>
-      <MultiSelect {...props} />
+    <MultiSelectStateProvider {...props}>
+      <MultiSelect />
     </MultiSelectStateProvider>
   );
 }

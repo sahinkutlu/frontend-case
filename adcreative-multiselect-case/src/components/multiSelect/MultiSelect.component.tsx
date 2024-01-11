@@ -4,63 +4,33 @@ import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
 import MultiSelectMenu from "./MultiSelectMenu.component";
 import { useEffect, useRef } from "react";
 import { useMultiSelectState, useMultiSelectStateDispatch } from "./MultiSelect.context";
-import { MultiSelectOption, actions } from "./MultiSelect.types";
 import MultiSelectSelectedCells from "./MultiSelectSelectedCells.components";
 
-export interface MultiSelectProps {
-  searchText: string;
-  setSearchText: React.Dispatch<React.SetStateAction<string>>;
-  options: MultiSelectOption[];
-  loading: boolean;
-  error: any;
-  selectedOptions: MultiSelectOption[];
-  setSelectedOptions: React.Dispatch<React.SetStateAction<MultiSelectOption[]>>;
-}
-
 // Next iteration would be providing replacable components.
-const MultiSelect = ({
-  searchText,
-  setSearchText,
-  options,
-  loading,
-  error,
-  selectedOptions,
-  setSelectedOptions,
-}: MultiSelectProps) => {
-  const state = useMultiSelectState();
-  const dispatch = useMultiSelectStateDispatch();
-
-  // useEffects to listen changes and update context to avoid prop drilling
-  useEffect(() => {
-    dispatch({ type: actions.SET_DATA, payload: { options, loading, error } });
-  }, [dispatch, options, loading, error, selectedOptions]);
-  useEffect(() => {
-    dispatch({ type: actions.SET_SELECTED_OPTIONS, payload: selectedOptions });
-  }, [dispatch, selectedOptions]);
-  useEffect(() => {
-    dispatch({ type: actions.SET_SEARCH_TEXT, payload: searchText });
-  }, [dispatch, searchText]);
+const MultiSelect = () => {
+  const { error, searchText, menuExpanded } = useMultiSelectState();
+  const { setSearchText, setSelectedOptions, setMenuExpanded } = useMultiSelectStateDispatch();
 
   // Ensure menu is expanded during search
   useEffect(() => {
     if (!!searchText.length) {
-      dispatch({ type: actions.EXPAND_MENU });
+      setMenuExpanded(true);
     }
-  }, [dispatch, searchText]);
+  }, [setMenuExpanded, searchText]);
 
   // Handle collapse menu on click outside
   const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (ref.current && event.target instanceof Node && !ref.current.contains(event.target)) {
-        dispatch({ type: actions.COLLAPSE_MENU });
+        setMenuExpanded(false);
       }
     }
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [ref, dispatch]);
+  }, [ref, setMenuExpanded]);
 
   const controlClasses = error ? `${styles.control} ${styles.error}` : `${styles.control}`;
   return (
@@ -72,15 +42,17 @@ const MultiSelect = ({
             type="text"
             className={styles.searchInput}
             tabIndex={2}
-            onChange={(e) => setSearchText(e.target.value)} // debounce would be good
+            onChange={(e) => {
+              setSearchText(e.target.value);
+            }} // debounce would be good
             value={searchText}
           />
         </div>
       </div>
-      <button className={styles.controlIcon} onClick={() => dispatch({ type: actions.TOGGLE_MENU })} tabIndex={3}>
+      <button className={styles.controlIcon} onClick={() => setMenuExpanded((prevState) => !prevState)} tabIndex={3}>
         <FontAwesomeIcon fixedWidth icon={faCaretDown} />
       </button>
-      {state.menuExpanded && <MultiSelectMenu setSelectedOptions={setSelectedOptions} />}
+      {menuExpanded && <MultiSelectMenu setSelectedOptions={setSelectedOptions} />}
     </div>
   );
 };
